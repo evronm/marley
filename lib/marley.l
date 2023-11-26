@@ -2,7 +2,7 @@
 (load "lib/util.l")
 (load "lib/server.l")
 (load "config.l")
-#(load "lib/rentity.l")
+(load "lib/rentity.l")
 (load "lib/er_mods.l")
 
 
@@ -31,7 +31,7 @@
       (ifn Cls  #This is kind of syntactic sugar, but it really makes URL's a lot cleaner.
         (if (or (not User) (not (= "get" Verb)))
           (403)
-          (rest_get> User RR QS Post User))
+          (rest_get> User Eid RR QS Post User))
         (if (need_auth> Cls Verb Eid)
           (ifn User
             (401)
@@ -39,20 +39,20 @@
               (let (Obj (db 'eid '+REntity Eid))
                 (ifn Obj
                   (404)
-                  (ifn (may (req_action Verb Path) User Obj)
+                  (ifn (may (req_action Verb Eid) User Obj)
                     (403)
-                    (send (any (pack "rest_" Verb ">")) Obj Path QS Post User))))
+                    (send (any (pack "rest_" Verb ">")) Obj Eid Path QS Post User))))
               (ifn (may (req_action Verb Eid) User Cls)
                 (403)
-                (send (any (pack "rest_" Verb ">")) Cls Path QS Post User))))
+                (send (any (pack "rest_" Verb ">")) Cls Eid Path QS Post User))))
           (if (num? Eid)
             (let (Obj (db 'eid '+REntity Eid))
                 (ifn Obj
                   (404)
-                  (ifn (may (req_action Verb Path) User Obj)
+                  (ifn (may (req_action Verb Eid) User Obj)
                     (403)
-                    (send (any (pack "rest_" Verb ">")) Obj Path QS Post User))))
-            (send (any (pack "rest_" Verb ">")) Cls Path QS Post User))))))
+                    (send (any (pack "rest_" Verb ">")) Obj Eid Path QS Post User))))
+            (send (any (pack "rest_" Verb ">")) Cls Eid Path QS Post User))))))
 
 
 (de may (Act User E R) 

@@ -1,0 +1,50 @@
+
+
+reggae ::= message | ('[' message (',' message)* ']')
+
+message ::= '[' (('mesg' ',' title ',' mesg_content ) |
+  ( 'url' ',' url ',' title ',' description  ) |
+  (('instance' | 'instances') ',' instance_spec ',' '[' instance_values (',' instance_values)* ']' ) |
+  ('error' ','  '[' err_spec (',' err_spec)*  ']')) ']'
+
+title ::= string_value
+
+mesg_content ::= string_value 
+
+url ::= url_value
+
+description ::= string_value
+
+instance_spec ::= '[' type ','  id ',' '[' (flag) (',' flag)* ']' ',' '[' field_spec (',' field_spec)* ']' ']'
+
+flag ::= new | ro | del
+
+field_spec ::= '[' name ',' type ',' restrictions ']'
+
+err_spec ::= '[' field ',' err ']'
+
+type ::= string_value
+
+id ::= integer_value | "new" | "search" | ""
+
+name ::= string_value
+
+field ::= string_value
+
+err ::= string_value
+
+type ::= "text" | "number" | "email" | "password" | "date" | "time" | "datetime" | "bool" | "instances"
+
+restrictions ::= '[' restriction ( ',' restriction)* ']'
+
+restriction ::= "ro" | "required" | min | max | permitted_values | pattern
+
+min ::= '[' 'min' ',' min_value ']'
+
+max ::= '[' 'max' ',' max_value ']'
+
+permitted_values ::= '[' 'values' ',' value (',' value)* ']'
+
+pattern ::= regex_value
+
+
