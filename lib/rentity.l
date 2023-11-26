@@ -75,7 +75,7 @@
   (dm get_list> (Path QS Post User) 
     (list 200 (list "instances" (spec> This User 'r) (list_vals> This Path QS Post User))))
   (dm get_rel_options> (Path QS Post User) #not working yet
-    (let (E (get (get This Path) 'cls)) 
+    (let (E (cls> (get (car(get This (intern (cadr Path))))) 'cls)) 
       (get_list> E)))
   
   (dm rest_get> (Eid Path QS Post User) 
@@ -84,7 +84,7 @@
         (list 200 (list "instance" (spec> This User 'r) (vals> This User 'r)))
         (let (Rs (get This (intern (car Path))) Kls (intern (get (get (cls> This) (intern (car Path))) 'type)))
           (ifn Kls  #The whole mishigas above is just for this test :/
-            (404)
+            (or (try (intern (pack "get_" (car Path) ">")) This Path QS Post User) (404))
             (list 200 (list "instances" (spec> Kls User 'r) (mapcar '((R)(vals> R User 'r)) Rs))))))
       (default Eid '("list"))
       (or (try (intern (pack "get_" Eid ">")) This Path QS Post User) (404))) )
