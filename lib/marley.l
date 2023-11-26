@@ -4,7 +4,7 @@
 (load "config.l")
 (load "lib/rentity.l")
 (load "lib/er_mods.l")
-
+(load (pack (confv '(client)) "/client.l"))
 
 (de authn (Creds)
   (let (Cls (intern "+User" (intern (confv '(ns)))))

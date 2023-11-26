@@ -40,7 +40,7 @@
             (filter '((E)(isa (intern "+User" (intern (confv '(ns)))) E)) (all (intern (confv '(ns)))))))))
 
   (dm title> () (confv '(title)) )
-  (dm rest_get> (Path QS Post User) 
+  (dm rest_get> (Eid Path QS Post User) 
     (list 200
       (ifn QS 
         ($html NIL 
