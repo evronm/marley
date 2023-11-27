@@ -25,7 +25,8 @@ err_spec ::= '[' field ',' err ']'
 
 type ::= string_value
 
-id ::= integer_value | "new" | "search" | ""
+/* Integers, "new" and "search" apply to "instance" only; the rest apply to "instances" only */
+id ::= integer_value | "new" | "search" | "select" | "multi"
 
 name ::= string_value
 
@@ -33,7 +34,7 @@ field ::= string_value
 
 err ::= string_value
 
-type ::= "text" | "number" | "email" | "password" | "date" | "time" | "datetime" | "bool" | "instances"
+type ::= "text" | "number" | "email" | "password" | "date" | "time" | "datetime" | "bool" | "instance" | "instances"
 
 restrictions ::= '[' restriction ( ',' restriction)* ']'
 
