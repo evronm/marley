@@ -65,7 +65,7 @@ function urlClick(e) {
 
 function rowClick(e) {
   if (e.target.tagName == 'A') {return}
-  var url = "/" + e.target.closest('table').classList[0] + "/" + u(e.target).parent('tr').attr('eid');
+  var url = "/" + e.target.closest('table').classList[0] + "/" + u(e.target).parent('tr').attr('id');
   req(url)
     .then((json) => show('#main', json))
     .catch((err) => console.error("error:", err));
@@ -77,7 +77,10 @@ function showRels(e) {
   var div_id=e.target.classList[1]+"_list";
   u(e.target).after(div({id:div_id, class:"select"}));
   req(url)
-    .then((json) =>(show("#"+div_id, json)))
+    .then((json) =>{
+      show("#"+div_id, json)
+      u(e.target.closest('form')).children('a').each((a) => {document.getElementById(a.toString().match(/\d+$/)).remove()})
+    })
     .catch((err) => console.error("error:", err));
 }
 

@@ -72,7 +72,11 @@ Field.prototype.ro=function() {
 }
 
 Field.prototype.instances=function() {
-  return [this.label(), reggae2dom(this.val), button({class: "showRels " + this.name}, "+")]
+  if (this.restrictions.indexOf("ro")>-1) {
+    return [this.label(), reggae2dom(this.val)]
+  } else {
+    return [this.label(), reggae2dom(this.val).map((u) => span({class: "asdf"}, [button({class:"del"},"x"),u])), button({class: "showRels " + this.name}, "+")]
+  }
 }
 
 function Table(json) {
@@ -84,5 +88,5 @@ function Table(json) {
 Table.prototype.dom=function() {
   return table( {class: this.typ},
     thead(tr( this.spec.map ((s) => th({class: s[1]}, s[0]) ))),
-    tbody(this.data.map((r) => tr({"eid": r.shift()}, r.map((f) => td(reggae2dom (f)))))));
+    tbody(this.data.map((r) => tr({"id": r.shift()}, r.map((f) => td(reggae2dom (f)))))));
 }
