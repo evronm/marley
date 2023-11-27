@@ -22,6 +22,7 @@
 (extend +List)
   (dm list> (Parent) (get Parent (get This 'var)))
   (dm spec> (User Act) "instances")
+  (dm options> (User Act) (get_list> (car (get This 'type)) NIL NIL NIL User))
 
 (class +Password +String)
   (dm put> (Obj Old Pw)
