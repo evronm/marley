@@ -73,7 +73,7 @@ function rowClick(e) {
 
 function showRels(e) {
   e.preventDefault();
-  var url=e.target.closest('form').action+"/rel_options/"+e.target.classList[1]+"/";
+  var url=e.target.closest('form').action+"/"+e.target.classList[1]+"/options";
   var div_id=e.target.classList[1]+"_list";
   u(e.target).after(div({id:div_id, class:"select"}));
   req(url)
