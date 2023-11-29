@@ -26,7 +26,7 @@
 
 #+REntity inherits from +Entity, adding rest methods and overriding a couple.  URL syntax is /entity/[new|search|eid] .
 #eid is unique for all addressable entitities in the DB.
-#additional required parameter for rel's is permissions:  read/write for user, group, other. Implemented in lib/relations.l
+#additional required parameter for rel's is permissions:  create/read/update/detlete/select/multiselect for user, group, other. Implemented in lib/relations.l
 #default class perms can be set in config.l
 #Each class should define a 'nm and a 'desc relation or method.  This needn't be unique, but will be used in link text for individual instances.
 
@@ -67,18 +67,18 @@
   (rel itins (+List +Joint) provider (+Itinerary) (rd crd NIL))
 
 (class +Service +REntity +Rest)
-  (var perms (crud rc r))
+  (var perms (crud rc rm))
   (dm owner> () (get This 'venue))
   (dm group_mem> (User) (isa '+Venue User))
   (dm set_owner>(User) (put> This 'venue User))
 
-  (rel nm (+Need +Sn +Aux +Key +String) (venue) (crud cr r))
-  (rel desc (+Need +Idx +String) (crud rc c))
-  (rel duration (+Need +Number) (crud cr r))
-  (rel price (+Need +Number) (crud cr r))
-  (rel capacity (+Need +Number) (crud cr r))
-  (rel max_grp (+Number) (crud cr r))
-  (rel venue (+Need +Ref +Joint) NIL services (+Venue) (rud cr r))
+  (rel nm (+Need +Sn +Aux +Key +String) (venue) (crud cr rm))
+  (rel desc (+Need +Idx +String) (crud rc cm))
+  (rel duration (+Need +Number) (crud cr rm))
+  (rel price (+Need +Number) (crud cr rm))
+  (rel capacity (+Need +Number) (crud cr rm))
+  (rel max_grp (+Number) (crud cr rm))
+  (rel venue (+Need +Ref +Joint) NIL services (+Venue) (rud cr rm))
   (rel itins (+List +Ref +Joint) NIL services (+Itinerary) (r))
 
 

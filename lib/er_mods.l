@@ -22,14 +22,13 @@
 (extend +List)
   (dm list> (Parent) (get Parent (get This 'var)))
   (dm spec> (User Act) "instances")
-  (dm options> (User Act) (get_list> (car (get This 'type)) NIL NIL NIL User))
+  (dm options> (QS User) (get_list> (car (get This 'type)) NIL QS NIL User "multi"))
 
 (class +Password +String)
   (dm put> (Obj Old Pw)
     (when (nil? (get Obj 'salt))
       (put> Obj 'salt (sym (in "/dev/urandom" (rd 10)))))
-    (super Obj Old (sym (pw_hash Pw (get Obj 'salt))))
-  )
+    (super Obj Old (sym (pw_hash Pw (get Obj 'salt)))))
 
 (class +Email +String) (dm type> () "email")
 
