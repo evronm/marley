@@ -1,2 +1,37 @@
-# marley
-Restafarianism for picolisp
+
+# Introduction to Marley Framework
+
+## Overview
+Marley is a framework for developers working on database-centric applications. It implements a highly efficient, declarative synatx for coupling database structures with front end structures.
+
+The backend is written in picolisp, and the front end is plain javascript plus vanjs and umbrellajs.  No state is maintained on the client (except, of course, client state).
+
+## Key Features
+- **Efficient Development**: Marley enables rapid application development with a lean coding approach.
+- **Declarative Approach**: The framework favors a declarative style, allowing for clear and concise definition of application behavior.
+- **Client-Server Communication via Reggae**: Client and server interactions are managed through the Reggae protocol, facilitating efficient state management and data exchange.
+- **Sensible, Override-able Defaults**: Out of the box, Marley makes a lot of assumptions.  The goal is for all of these to be easy to override for customization.
+
+## Components
+- **Server-Side Structure**:
+  - `er_mods.l`: Enhances relation classes with additional capabilities.
+  - `rentity.l`: A wrapper for database entities, integrating RESTful methods and utility functions.
+  - `marley.l`: Contains core functions for processing requests, authentication, and authorization.
+  - `server.l`: A basic web server, subject to future enhancements or complete replacement.
+  - `util.l`: A collection of utility functions for common tasks.
+- **Client-Side Components**:
+  - `client.l`: Generates foundational client-side HTML.
+  - `reggae.js`: Implements the client-side handling of Reggae messages.
+  - `jamaica.js`: Additional JavaScript functionalities for the client interface.
+
+## Testing Philosophy
+The framework adopts a user story-driven testing approach, focusing on how the features fulfill actual user requirements and scenarios.  Testing is by no means comprehensive and needs a lot of work.
+
+## Target Audience
+Marley is particularly suitable for solo developers and small teams who value a straightforward and practical tool for their development processes.
+
+## Naming Inspiration
+It's a testament to the soundness of the framework that I am able to use such an orthagonal concept for my naming.  This was originally written in Ruby and made use of the Sinatra framework.  I thought the authors picked the wrong singer for a REST framework, so I chose Marley, and the rest kind of fell into place.  I may end up changing the client name to "Babylon" as it might be more appropriate.  As it is, Jamaica requests Reggae from Marley, and Marley complies.
+
+## Current Status
+Seems to me the server side is largely done, with the exception of the web server, which won't scale.  The front end needs work, which I'll do myself.  I used a purpose-built GPT to generate most of this document, and hope it will help me finish the test suite as well.  I've found it mostly useless for coding, but it generated all the css and I want to make use of it as much as possible.  So lots more docs are coming (I hope).

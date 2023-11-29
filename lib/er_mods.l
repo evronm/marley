@@ -19,6 +19,9 @@
   (put *Class 'rels (append (get *Class 'rels) (list (car Lst)))) #push goes in the wrong order
   (set_perms> (get *Class (car Lst)) (last Lst)))
 
+(extend +Ref)
+  (dm options> (QS User) (get_list> (car (get This 'type)) NIL QS NIL User "select"))
+
 (extend +List)
   (dm list> (Parent) (get Parent (get This 'var)))
   (dm spec> (User Act) "instances")

@@ -75,12 +75,13 @@ Field.prototype.instances=function() {
   if (this.restrictions.indexOf("ro")>-1) {
     return [this.label(), reggae2dom(this.val)]
   } else {
-    return [this.label(), reggae2dom(this.val).map((u) => span({class: "asdf"}, [button({class:"del"},"x"),u])), button({class: "showRels " + this.name}, "+")]
+    return [this.label(), reggae2dom(this.val).map((u) => span({class: "rel"}, u)), button({class: "showRels " + this.name}, "+")]
   }
 }
 
 function Table(json) {
   this.typ=json[0][0];
+  this.sel_type=json[0][1];
   this.flags=json[0][2];
   this.spec=json[0][3];
   this.data=json[1];
