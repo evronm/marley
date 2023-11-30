@@ -1,10 +1,16 @@
 
-# Introduction to Marley Framework
+# Introducing the Marley Framework for Picolisp
 
 ## Overview
-Marley is a framework for developers working on database-centric applications. It implements a highly efficient, declarative synatx for coupling database structures with front end structures.
+Marley implements a highly efficient, declarative DSL for coupling database structures with front end structures.
 
 The backend is written in picolisp, and the front end is plain javascript plus vanjs and umbrellajs.  No state is maintained on the client (except, of course, client state).
+
+## Design Goals
+- Sensible, override-able defaults.  
+- Declararative style - Also overridable!
+- Minimalism in code, documentation and testing.  This maximizes flexibility.
+- Flexibility deserves its own bullet point.
 
 ## Prerequisites
 
@@ -37,12 +43,7 @@ The backend is written in picolisp, and the front end is plain javascript plus v
 
 3. You should see the default Marley application running.
 
-
-## Key Features
-- **Efficient Development**: Marley enables rapid application development with a lean coding approach.
-- **Declarative Approach**: The framework favors a declarative style, allowing for clear and concise definition of application behavior.
-- **Client-Server Communication via Reggae**: Client and server interactions are managed through the Reggae protocol, facilitating efficient state management and data exchange.
-- **Sensible, Override-able Defaults**: Out of the box, Marley makes a lot of assumptions.  The goal is for all of these to be easy to override for customization.
+4. Play around in `testapp.l` and see if you can tailor it to your needs.
 
 ## Components
 - **Server-Side Structure**:
