@@ -6,6 +6,38 @@ Marley is a framework for developers working on database-centric applications. I
 
 The backend is written in picolisp, and the front end is plain javascript plus vanjs and umbrellajs.  No state is maintained on the client (except, of course, client state).
 
+## Prerequisites
+
+- [picolisp](http://picolisp.com)
+
+## Installation
+
+1. Clone the Marley repository:
+   \```bash
+   git clone https://github.com/evronm/marley.git
+   \```
+
+2. Navigate to the Marley directory:
+   \```bash
+   cd marley
+   \```
+
+## Running a Simple Application
+
+1. Start the Marley server:
+   \```bash
+   pil test/go.l +
+   \```
+
+   This launches the Marley server using the `server.l` script.
+
+2. Access the application:
+   - Open your web browser.
+   - Navigate to `http://localhost:4200` (or the port specified in your configuration).
+
+3. You should see the default Marley application running.
+
+
 ## Key Features
 - **Efficient Development**: Marley enables rapid application development with a lean coding approach.
 - **Declarative Approach**: The framework favors a declarative style, allowing for clear and concise definition of application behavior.

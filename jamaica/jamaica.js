@@ -76,7 +76,7 @@ function showRels(e) {
   req(url)
     .then((json) =>{
       show("#"+div_id, json)
-      u(e.target.closest('form')).children('a').each((a) => {document.getElementById(a.toString().match(/\d+$/)).remove()})
+      u(e.target.closest('form')).find('span.rel a').each((l) => {u(document.getElementById(l.toString().match(/\d+$/))).addClass('selected')})
     })
     .catch((err) => console.error("error:", err));
 }

@@ -149,6 +149,12 @@ tr:hover {
     background-color: #eaeaea;
 }
 
+tr.selected {
+  background-color: #600000;
+  color: white;
+  font-weight: bold;
+}
+
 /* Link styling within main content area */
 #main a {
     color: #800000;
