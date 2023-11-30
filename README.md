@@ -1,6 +1,8 @@
 
 # Introducing the Marley Framework for Picolisp
 
+Most of the forthcoming is GPT generated.  However, I have cut out huge sections, edited others, and verified that nothing is actually wrong.  Removing irrelevant content is an ongoing project.
+
 ## Overview
 Marley implements a highly efficient, declarative DSL for coupling database structures with front end structures.
 

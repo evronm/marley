@@ -84,7 +84,7 @@
             (or (try (intern (pack "get_" (car Path) ">")) This Path QS Post User) (404))
             (if (lst? Path)
               (send (intern (pack (cadr Path) ">")) (meta This (intern (car Path))) QS User )
-              (list 200 (list "instances" (spec> Kls User 'r) (mapcar '((R)(vals> R User 'r)) Rs)))))))
+              (list 200 (list "instances" (spec> Kls User 'r "display") (mapcar '((R)(vals> R User 'r)) Rs)))))))
       (default Eid '("list"))
       (or (try (intern (pack "get_" Eid ">")) This Path QS Post User) (404))) )
 

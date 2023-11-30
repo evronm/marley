@@ -74,7 +74,7 @@
 (test '(@N @N) (get (db 'eid '+Itinerary (car @Itin2)) 'services))
 
 #user lists itineraries
-(test (200 ("instances" ("itinerary" "new" ("ro") ((start_addr "text" (ro req)) (dt "date" (ro req)) (tm "time" (ro req)) (ppl "number" (ro req)) (services "instances" (ro)) (provider "text" (ro)))) ((50 "xxxxxx" 739230 44400 4 (("url" "/service/39" "serv21" "serv21 desc") ("url" "/service/38" "serv13" "serv13 desc")) NIL) (49 "asdf asdf" 739194 41400 2 (("url" "/service/41" "serv31" "serv31 desc") ("url" "/service/40" "serv22" "serv22 desc") ("url" "/service/36" "serv11" "serv11 desc")) NIL)))) (process "get" '("itins") NIL NIL '("user1@eml.com" "asdf") ))
+(test (200 ("instances" ("itinerary" "display" ("ro") ((start_addr "text" (ro req)) (dt "date" (ro req)) (tm "time" (ro req)) (ppl "number" (ro req)) (services "instances" (ro)) (provider "text" (ro)))) ((50 "xxxxxx" 739230 44400 4 (("url" "/service/39" "serv21" "serv21 desc") ("url" "/service/38" "serv13" "serv13 desc")) NIL) (49 "asdf asdf" 739194 41400 2 (("url" "/service/41" "serv31" "serv31 desc") ("url" "/service/40" "serv22" "serv22 desc") ("url" "/service/36" "serv11" "serv11 desc")) NIL)))) (process "get" '("itins") NIL NIL '("user1@eml.com" "asdf") ))
 
 #user3 creates itinerary
 (match '(@Code ("instance" ("itinerary" @Itin3 @Rest))) (process "post" '("itinerary" "new") NIL '((ppl . 2) (start_addr . "asdf asdf") (dt . "2024-01-03") (tm . "11:30")) '("user3@eml.com" . "asdf")))
