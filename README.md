@@ -13,21 +13,21 @@ The backend is written in picolisp, and the front end is plain javascript plus v
 ## Installation
 
 1. Clone the Marley repository:
-   \```bash
+   ```bash
    git clone https://github.com/evronm/marley.git
-   \```
+   ```
 
 2. Navigate to the Marley directory:
-   \```bash
+   ```bash
    cd marley
-   \```
+   ```
 
 ## Running a Simple Application
 
 1. Start the Marley server:
-   \```bash
+   ```bash
    pil test/go.l +
-   \```
+   ```
 
    This launches the Marley server using the `server.l` script.
 
