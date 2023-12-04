@@ -23,7 +23,7 @@ function show(target, json) {
   u('#main form').on('submit', formSubmit);
   u('a').handle('click', urlClick)
   u('.showRels').handle('click', showRels)
-  u('tr').handle('click', rowClick);
+  u('#main > table tbody tr').handle('click', rowClick); //This avoids the behavior for selection tables and also for the header; not sure why the latter is necessary.
 }
 
 function req(url, meth, body) {
