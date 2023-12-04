@@ -43,10 +43,10 @@
   (dm rest_get> (Eid Path QS Post User) 
     (list 200
       (ifn QS 
-        ($html NIL 
+        (pack "<!doctype html>" ($html NIL 
           (list (head> This User) 
           ($body NIL 
-            (list (header> This User) (nav> This QS User) ($div '((id . main)))))))
+            (list (header> This User) (nav> This QS User) ($div '((id . main))))))))
       (pack (mapcar '((Part)(send (intern (pack Part ">")) This User)) (sc QS ","))) )
     "html"))
    
