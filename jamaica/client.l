@@ -18,6 +18,7 @@
           ($div '((id . account)) (account> This User)))))
   (dm head> (User)
    ($head NIL ( list
+      "<meta name='viewport' content='width=device-width, initial-scale=1'>"
       ($style '((type text/css)) (pack (in "jamaica/client.css" (till))))
       ($script '((type text/javascript) (src . https://cdn.jsdelivr.net/npm/umbrellajs)))
       ($script '((type text/javascript) (src . https://cdn.jsdelivr.net/gh/vanjs-org/van/public/van-1.2.0.nomodule.min.js)))

@@ -37,6 +37,9 @@ const Reggae={
   }
 }
 
+u.prototype.eid=function() { 
+  return u(this).attr('id').match(/\d+$/)[0] 
+}
 
 function Field (spec, val) {
   this.name=spec[0];
@@ -75,7 +78,7 @@ Field.prototype.instances=function() {
   if (this.restrictions.indexOf("ro")>-1) {
     return [this.label(), reggae2dom(this.val)]
   } else {
-    return [this.label(), reggae2dom(this.val).map((u) => span({class: "rel"}, u)), button({class: "showRels " + this.name}, "+")]
+    return [this.label(), reggae2dom(this.val).map((u) => span({class: "rel"}, u)), button({class: "showRels " + this.name}, "✎")]
   }
 }
 
@@ -89,5 +92,5 @@ function Table(json) {
 Table.prototype.dom=function() {
   return table( {class: this.typ},
     thead(tr( this.spec.map ((s) => th({class: s[1]}, s[0]) ))),
-    tbody(this.data.map((r) => tr({"id": r.shift()}, r.map((f) => td(reggae2dom (f)))))));
+    tbody(this.data.map((r) => tr({"id": "row_" + r.shift()}, r.map((f) => td(reggae2dom (f)))))));
 }
