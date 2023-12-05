@@ -33,7 +33,7 @@ const Reggae={
     return "asdf";
   },
   url: (json) => {
-    return a({href: json[0]}, json[1]);
+    return a({href: json[0], id: "link_" + json[0].replace(/.*\//,"")}, json[1]);
   }
 }
 
