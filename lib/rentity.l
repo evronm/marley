@@ -88,19 +88,6 @@
       (default Eid '("list"))
       (or (try (intern (pack "get_" Eid ">")) This Path QS Post User) (404))) )
 
-  (dm update_rels> (User Action New_KV)
-    (for R (rels> This User Action)
-      (if (isa '+Link (meta This R))
-        (for Eid (cdr (assoc R New_KV))
-          (ifn (setq Ent (db 'eid '+REntity (any Eid)))
-            (push 'Errs (list Eid "Does not exist"))
-            (put> This R Ent)))
-        (let (V (cdr (assoc R New_KV)))
-          (cond
-            ((setq Err (mis> This R (or (if (num? (any V)) (any V) V) (get This R)))) (push 'Errs (list R Err )))
-            ((and V (not (may Action User This R))) (push 'Errs (list R "Forbidden")))
-            (V (put> This R (if (num? (any V)) (any V) V))))))) )
-
   (dm rest_post> (Eid Path QS Post User) 
     (if (= "del" (car Post))
       (rest_del> This (cdr Post) User)
@@ -109,7 +96,17 @@
           (setq E (new T (list This)))
           (try 'set_owner> E User))
         (setq E This))
-      (update_rels> E User (req_action Verb Eid) Post)
+      (for R (rels> E User (req_action Verb Eid))
+        (if (isa '+Link (meta E R))
+          (for Eid (cdr (assoc R Post))
+            (ifn (setq Ent (db 'eid '+REntity (any Eid)))
+              (push 'Errs (list Eid "Does not exist"))
+              (put> E R Ent)))
+          (let (V (cdr (assoc R Post)))
+            (cond
+              ((setq Err (mis> E R (or (if (num? (any V)) (any V) V) (get E R)))) (push 'Errs (list R Err )))
+              ((and V (not (may (req_action Verb Eid) User This R))) (push 'Errs (list R "Forbidden")))
+              (V (put> E R (if (num? (any V)) (any V) V)))))))
       (if Errs
         (prog 
           (rollback)
