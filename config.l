@@ -6,4 +6,5 @@
     (ns . "entities")
     (default_path . (client))
     (default_cls_perms . (crud r c c))
-    (static_dir . "static/")))
+    (static_dir . "static/")
+    (log_file . "log")))

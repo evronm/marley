@@ -104,7 +104,9 @@ function showRels(e) {
     .catch((err) => console.error("error:", err));
 }
 function selClick(e) {
-  alert("asdf");
+  var url=e.target.closest('form').action
+  var body= {services: u(e.target.closest('tr')).eid()};
+  req(url, "post", body).then((json) => {alert(json)});
 }
 
 
