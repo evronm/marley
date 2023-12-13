@@ -105,7 +105,7 @@ function showRels(e) {
 }
 function selClick(e) {
   var url=e.target.closest('form').action
-  var body= {services: u(e.target.closest('tr')).eid()};
+  var body= "services=" + u(e.target.closest('tr')).eid();
   req(url, "post", body).then((json) => {alert(json)});
 }
 
