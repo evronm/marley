@@ -79,7 +79,7 @@
     (if (ext? This)
       (ifn Path 
         (list 200 (list "instance" (spec> This User 'r) (vals> This User 'r)))
-        (let (Rs (get This (intern (car Path))) Kls (intern (get (get (cls> This) (intern (car Path))) 'type)))
+        (let (Rs (get This Path) Kls (intern (get (get (cls> This) Path) 'type)))
           (ifn Kls  #The whole mishigas above is just for this test :/
             (or (try (intern (pack "get_" (car Path) ">")) This Path QS Post User) (404))
             (if (lst? Path)
@@ -91,7 +91,7 @@
   (dm rest_post> (Eid Path QS Post User) 
     (if (= "del" (car Post))
       (rest_del> This (cdr Post) User)
-      (if (or (= Eid "new") (nil? Eid))
+      (if (not (ext? This))
         (prog 
           (setq E (new T (list This)))
           (try 'set_owner> E User))

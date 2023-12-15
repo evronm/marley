@@ -18,7 +18,7 @@
       'c
       (if (and (= "post" Verb) (num? (any Eid))) 
         'u 
-        (if (= "del" Eid 'd NIL))))))
+        (if (= "del" Eid 'd 'x))))))  # x should never show up in permissions.
 
 
 (de process2 (Verb Path QS Post Creds)
@@ -34,7 +34,7 @@
           (ifn Obj 
             (404)
             (ifn (may Action User Obj)
-              (ifn User (403) (401))
+              (if User (403) (401))
               (send (any (pack "rest_" Verb ">")) Obj Meth Path QS Post User)))))
       ((sym? RR)
         (let ( Cls (or (isa '+Rest (intern (to_cls_nm RR) (intern (confv '(ns))))) NIL))
@@ -43,7 +43,7 @@
               (403)
               (rest_get> User Meth RR QS Post User))
             (ifn (may Action User Cls)
-              (ifn User (403) (401))
+              (if User (403) (401))
               (send (any (pack "rest_" Verb ">")) Cls Meth Path QS Post User)))))
 
       (T (404)))))
