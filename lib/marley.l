@@ -25,9 +25,9 @@
   (default Path (confv '(default_path))) 
   (let (
     RR (any (++ Path)) #RR = Requested Resource
-    User (authn Creds))
+    User (authn Creds)
     Meth (++ Path)
-    Action (req_action Verb Meth)
+    Action (req_action Verb Meth))
     (cond
       ((num? RR)
         (let (Obj (db 'eid '+REntity RR))
@@ -94,7 +94,7 @@
         User E)))) 
 
 (de go ()
-  (start process2) )
+  (start process) )
 
 (pool (confv '(pool)))
 
