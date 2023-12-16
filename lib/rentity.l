@@ -86,7 +86,7 @@
       (default Meth '("list"))
       (or (try (intern (pack "get_" Meth ">")) This Path QS Post User) (404))) )
 
-  (dm rest_post> (Eid Path QS Post User) 
+  (dm rest_post> (Meth Path QS Post User) 
     (if (= "del" (car Post))
       (rest_del> This (cdr Post) User)
       (if (not (ext? This))
@@ -94,7 +94,7 @@
           (setq E (new T (list This)))
           (try 'set_owner> E User))
         (setq E This))
-      (for R (rels> E User (req_action Verb Eid))
+      (for R (rels> E User (req_action Verb Meth))
         (if (and (isa '+Link (meta E R)) (assoc R Post))
           (for Eid (or (pair (cdr (assoc R Post))) (list (cdr (assoc R Post))) )
             (ifn (setq Ent (db 'eid '+REntity (any Eid)))
@@ -103,7 +103,7 @@
           (let (V (cdr (assoc R Post)))
             (cond
               ((setq Err (mis> E R (or (if (num? (any V)) (any V) V) (get E R)))) (push 'Errs (list R Err )))
-              ((and V (not (may (req_action Verb Eid) User This R))) (push 'Errs (list R "Forbidden")))
+              ((and V (not (may (req_action Verb Meth) User This R))) (push 'Errs (list R "Forbidden")))
               (V (put> E R (if (num? (any V)) (any V) V)))))))
       (if Errs
         (prog 
