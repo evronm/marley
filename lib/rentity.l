@@ -73,7 +73,7 @@
   (dm get_new> (Path QS Post User) (list 200 (list "instance" (spec> This User 'c))))
   (dm get_list> (Path QS Post User Sel_type) (list 200 (list "instances" (spec> This User 'r Sel_type) (list_vals> This Path QS Post User))))
   
-  (dm rest_get> (Eid Path QS Post User) 
+  (dm rest_get> (Meth Path QS Post User) 
     (if (ext? This)
       (ifn Path 
         (list 200 (list "instance" (spec> This User 'r) (vals> This User 'r)))
@@ -83,8 +83,8 @@
             (if (lst? Path)
               (send (intern (pack (cadr Path) ">")) (meta This (intern (car Path))) QS User )
               (list 200 (list "instances" (spec> Kls User 'r "display") (mapcar '((R)(vals> R User 'r)) Rs)))))))
-      (default Eid '("list"))
-      (or (try (intern (pack "get_" Eid ">")) This Path QS Post User) (404))) )
+      (default Meth '("list"))
+      (or (try (intern (pack "get_" Meth ">")) This Path QS Post User) (404))) )
 
   (dm rest_post> (Eid Path QS Post User) 
     (if (= "del" (car Post))
