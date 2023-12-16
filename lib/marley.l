@@ -27,26 +27,17 @@
     RR (any (++ Path)) #RR = Requested Resource
     User (authn Creds)
     Meth (++ Path)
-    Action (req_action Verb Meth))
-    (cond
-      ((num? RR)
-        (let (Obj (db 'eid '+REntity RR))
-          (ifn Obj 
-            (404)
-            (ifn (may Action User Obj)
-              (if User (403) (401))
-              (send (any (pack "rest_" Verb ">")) Obj Meth Path QS Post User)))))
-      ((sym? RR)
-        (let ( Cls (or (isa '+Rest (intern (to_cls_nm RR) (intern (confv '(ns))))) NIL))
-          (ifn Cls
-            (if (or (not User) (not (= "get" Verb)))
-              (403)
-              (rest_get> User Meth RR QS Post User))
-            (ifn (may Action User Cls)
-              (if User (403) (401))
-              (send (any (pack "rest_" Verb ">")) Cls Meth Path QS Post User)))))
-
-      (T (404)))))
+    Action (req_action Verb Meth)
+    Targ (if (num? RR) (db 'eid '+REntity RR) (or (isa '+Rest (intern (to_cls_nm RR) (intern (confv '(ns))))) NIL)))
+    (if (and (sym? RR) (not Targ)) 
+      (if (or (not User) (not (= "get" Verb)))
+        (403)
+        (rest_get> User Meth RR QS Post User))
+      (ifn Targ
+          (404)
+          (ifn (may Action User Targ)
+            (if User (403) (401))
+            (send (any (pack "rest_" Verb ">")) Targ Meth Path QS Post User))))))
 
 (de may (Act User E R) 
   (ifn R 
