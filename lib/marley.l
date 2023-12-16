@@ -11,14 +11,14 @@
     (setq User (db 'eml Cls (car Creds))))
     (and User (= (pw_hash (cdr Creds) (get User 'salt)) (get User 'pw)) User)) #User needs to show up twice to prevent error and return User.
 
-(de req_action (Verb Eid) 
-  (if (or (= "new" Eid ) (and (nil? Eid) (= "post" Verb)))
+(de req_action (Verb Meth) 
+  (if (or (= "new" Meth ) (and (nil? Meth) (= "post" Verb)))
     'c
     (if (= "get" Verb) 
       'r
-      (if (and (= "post" Verb) (num? (any Eid))) 
+      (if (and (= "post" Verb) (num? (any Meth))) 
         'u 
-        (if (= "del" Eid 'd 'x))))))  # x should never show up in permissions.
+        (if (= "del" Meth 'd 'x))))))  # x should never show up in permissions.
 
 
 (de process (Verb Path QS Post Creds)
