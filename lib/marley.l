@@ -12,10 +12,10 @@
     (and User (= (pw_hash (cdr Creds) (get User 'salt)) (get User 'pw)) User)) #User needs to show up twice to prevent error and return User.
 
 (de req_action (Verb Eid) 
-  (if (and (= "get" Verb) (or (num? (any Eid)) (member Eid '("list" "show" NIL))))
-    'r
-    (if (or (= "new" Eid ) (nil? Eid))
-      'c
+  (if (or (= "new" Eid ) (and (nil? Eid) (= "post" Verb)))
+    'c
+    (if (= "get" Verb) 
+      'r
       (if (and (= "post" Verb) (num? (any Eid))) 
         'u 
         (if (= "del" Eid 'd 'x))))))  # x should never show up in permissions.
