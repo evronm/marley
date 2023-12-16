@@ -18,8 +18,6 @@
     (setq Perms (car (or (get This 'perms) (var: perms))))
     (chop ((role_pos> This User) Perms)))
 
-  (dm need_auth> (Verb Eid) (not (may (req_action Verb Eid) NIL This)))
-
   (dm owner> () This)
   (dm group_mem> (User) NIL) #no priveleged groups by default
   (dm cls> () (if (ext? This) (car (type This)) (name This)))

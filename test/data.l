@@ -3,17 +3,17 @@
 
 
 (de post @
-  (process2 "post" (list (next) "new") NIL (next) (next)  ))
+  (process "post" (list (next) "new") NIL (next) (next)  ))
 
 (symbols 'entities 'pico)
 (for N 20
-  (process2 "post" '("user" "new") NIL (list (cons "eml"  (pack "user" N "@eml.com")) (cons "pw" "asdf") (cons "addr"  (pack "user" N "address")) (cons "nm" (pack "user" N) ))))
+  (process "post" '("user" "new") NIL (list (cons "eml"  (pack "user" N "@eml.com")) (cons "pw" "asdf") (cons "addr"  (pack "user" N "address")) (cons "nm" (pack "user" N) ))))
 
 (for N 5
-  (process2 "post" '("provider" "new") NIL (list (cons "eml"  (pack "prov" N "@eml.com")) (cons "pw" "asdf") (cons "addr"  (pack "prov" N "address")) (cons "nm" (pack "prov" N) ) (cons "desc" (pack "prov desc " N) ))))
+  (process "post" '("provider" "new") NIL (list (cons "eml"  (pack "prov" N "@eml.com")) (cons "pw" "asdf") (cons "addr"  (pack "prov" N "address")) (cons "nm" (pack "prov" N) ) (cons "desc" (pack "prov desc " N) ))))
 
 (for N 10
-  (process2 "post" '("venue" "new") NIL (list (cons "eml"  (pack "ven" N "@eml.com")) (cons "pw" "asdf") (cons "addr"  (pack "ven" N "address")) (cons "nm" (pack "ven" N) ) (cons "desc" (pack "venue desc " N) ))))
+  (process "post" '("venue" "new") NIL (list (cons "eml"  (pack "ven" N "@eml.com")) (cons "pw" "asdf") (cons "addr"  (pack "ven" N "address")) (cons "nm" (pack "ven" N) ) (cons "desc" (pack "venue desc " N) ))))
 
 
 

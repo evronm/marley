@@ -21,7 +21,7 @@
         (if (= "del" Eid 'd 'x))))))  # x should never show up in permissions.
 
 
-(de process2 (Verb Path QS Post Creds)
+(de process (Verb Path QS Post Creds)
   (default Path (confv '(default_path))) 
   (let (
     RR (any (++ Path)) #RR = Requested Resource
@@ -47,40 +47,6 @@
               (send (any (pack "rest_" Verb ">")) Cls Meth Path QS Post User)))))
 
       (T (404)))))
-
-(de process (Verb Path QS Post Creds) 
-  (default Path (confv '(default_path))) 
-  (let (
-    RR (++ Path)  #RR = Requested Resource
-    Cls (or (isa '+Rest (intern (to_cls_nm RR) (intern (confv '(ns))))) NIL)
-    Eid (any (++ Path))
-    User (authn Creds))
-      (ifn Cls  #This is kind of syntactic sugar, but it really makes URL's a lot cleaner.
-        (if (or (not User) (not (= "get" Verb)))
-          (403)
-          (rest_get> User Eid RR QS Post User))
-        (if (need_auth> Cls Verb Eid)
-          (ifn User
-            (401)
-            (if (num? Eid)
-              (let (Obj (db 'eid '+REntity Eid))
-                (ifn Obj
-                  (404)
-                  (ifn (may (req_action Verb Eid) User Obj)
-                    (403)
-                    (send (any (pack "rest_" Verb ">")) Obj Eid Path QS Post User))))
-              (ifn (may (req_action Verb Eid) User Cls)
-                (403)
-                (send (any (pack "rest_" Verb ">")) Cls Eid Path QS Post User))))
-          (if (num? Eid)
-            (let (Obj (db 'eid '+REntity Eid))
-                (ifn Obj
-                  (404)
-                  (ifn (may (req_action Verb Eid) User Obj)
-                    (403)
-                    (send (any (pack "rest_" Verb ">")) Obj Eid Path QS Post User))))
-            (send (any (pack "rest_" Verb ">")) Cls Eid Path QS Post User))))))
-
 
 (de may (Act User E R) 
   (ifn R 
