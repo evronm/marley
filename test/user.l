@@ -4,8 +4,8 @@
 
 #deletion permission tests
 (setq uid (get (db 'nm '+User "user20") 'eid))
-(test '(403 ((error) (NIL "Forbidden"))) (process "post" '("user") NIL (list "del" uid) ))
-(test '(204 ("mesg" "Success" "deleted successfully")) (process "post" '("user") NIL (list "del" uid) '("user20@eml.com" "asdf")))
+(test '(401) (process "post" (list uid) NIL (list (cons "_method" "del") )))
+(test '(204 ("mesg" "Success" "deleted successfully")) (process "post" (list uid) NIL (list (cons "_method" "del")) '("user20@eml.com" "asdf")))
 (test 19 (length (lsearch Nil '((nm +User)))))
 
 #anon requests new user form

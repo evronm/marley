@@ -70,8 +70,8 @@
 
   (dm list_vals> (Path QS Post User) (mapcar '((E) (vals> E User 'r)) (list> This Path QS Post User)))
       
-  (dm get_new> (Path QS Post User) (list 200 (list "instance" (spec> This User 'c))))
-  (dm get_list> (Path QS Post User Sel_type) (list 200 (list "instances" (spec> This User 'r Sel_type) (list_vals> This Path QS Post User))))
+  (dm rest_get_new> (Path QS Post User) (list 200 (list "instance" (spec> This User 'c))))
+  (dm rest_get_list> (Path QS Post User Sel_type) (list 200 (list "instances" (spec> This User 'r Sel_type) (list_vals> This Path QS Post User))))
   
   (dm rest_get> (Meth Path QS Post User) 
     (if (ext? This)
@@ -84,11 +84,9 @@
               (send (intern (pack (cadr Path) ">")) (meta This (intern (car Path))) QS User )
               (list 200 (list "instances" (spec> Kls User 'r "display") (mapcar '((R)(vals> R User 'r)) Rs)))))))
       (default Meth '("list"))
-      (or (try (intern (pack "get_" Meth ">")) This Path QS Post User) (404))) )
+      (or (try (intern (pack "rest_get_" Meth ">")) This Path QS Post User) (404))) )
 
   (dm rest_post> (Meth Path QS Post User) 
-    (if (= "del" (car Post))
-      (rest_del> This (cdr Post) User)
       (if (not (ext? This))
         (prog 
           (setq E (new T (list This)))
@@ -110,13 +108,13 @@
           (rollback)
           (prog1 (list 422 (cons '(error) Errs)) (setq Errs NIL)) ) 
         (commit)
-        (list 201 (list "instance" (spec> E User 'u) (vals> E User 'u)))) ) )
-   (dm rest_del> (Eids User) 
-     (for ID Eids
-       (let (E (db 'eid '+REntity ID))
-         (if (may 'd User E)
-           (lose> E)
-           (push 'Errs (list R "Forbidden")))))
+        (list 201 (list "instance" (spec> E User 'u) (vals> E User 'u)))) ) 
+
+   (dm rest_del> (Meth Path QS Post User)
+    (ifn Meth
+      (lose> This)
+      ())
+
      (if Errs
         (prog 
           (rollback)
