@@ -10,6 +10,7 @@
 (for Tag '(html head style script link body h1 h2 h3 a p em strong div form label input textarea submit button) (set (intern (pack "$" Tag)) (tag Tag)))
 
 (class +Jamaica)
+  (dm perms> () '(r r r r)) #not sure how much I like this...
   (dm need_auth> () NIL)
   (dm nav> (User) )
   (dm header> (User)
