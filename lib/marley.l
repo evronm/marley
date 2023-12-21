@@ -37,7 +37,7 @@
     (if (and (sym? RR) (not Targ)) 
       (if (or (not User) (not (= "get" Verb)))
         (403)
-        (rest_get> User Meth RR QS Post User))
+        (rest_get> User RR Meth QS Post User))
       (ifn Targ
           (404)
           (ifn (may Action User Targ)

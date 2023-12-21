@@ -75,13 +75,13 @@
   
   (dm rest_get> (Meth Path QS Post User) 
     (if (ext? This)
-      (ifn Path 
+      (ifn Meth
         (list 200 (list "instance" (spec> This User 'r) (vals> This User 'r)))
-        (let (Rs (get This Path) Kls (intern (get (get (cls> This) Path) 'type)))
+        (let (Rs (get This (intern Meth)) Kls (intern (get (get (cls> This) (intern Meth)) 'type)))
           (ifn Kls  #The whole mishigas above is just for this test :/
             (or (try (intern (pack "get_" (car Path) ">")) This Path QS Post User) (404))
-            (if (lst? Path)
-              (send (intern (pack (cadr Path) ">")) (meta This (intern (car Path))) QS User )
+            (if Path
+              (send (intern (pack Path ">")) (meta This (intern Meth)) QS User )
               (list 200 (list "instances" (spec> Kls User 'r "display") (mapcar '((R)(vals> R User 'r)) Rs)))))))
       (default Meth '("list"))
       (or (try (intern (pack "rest_get_" Meth ">")) This Path QS Post User) (404))) )

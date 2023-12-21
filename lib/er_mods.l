@@ -20,12 +20,12 @@
   (set_perms> (get *Class (car Lst)) (last Lst)))
 
 (extend +Ref)
-  (dm options> (QS User) (get_list> (car (get This 'type)) NIL QS NIL User "select"))
+  (dm options> (QS User) (rest_get_list> (car (get This 'type)) NIL QS NIL User "select"))
 
 (extend +List)
   (dm list> (Parent) (get Parent (get This 'var)))
   (dm spec> (User Act) "instances")
-  (dm options> (QS User) (get_list> (car (get This 'type)) NIL QS NIL User "multi"))
+  (dm options> (QS User) (rest_get_list> (car (get This 'type)) NIL QS NIL User "multi"))
 
 (class +Password +String)
   (dm put> (Obj Old Pw)
