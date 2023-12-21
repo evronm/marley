@@ -113,7 +113,7 @@
    (dm rest_del> (Meth Path QS Post User)
     (ifn Meth
       (lose> This)
-      ())
+      (del> This (intern Meth) (db 'eid '+REntity (car Path))))
 
      (if Errs
         (prog 
