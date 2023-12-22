@@ -84,7 +84,7 @@ function getCreds() {
 
 function rowClick(e) {
   if (e.target.tagName == 'A') {return}
-  var url = "/" + e.target.closest('table').classList[0] + "/" + u(e.target).parent('tr').eid();
+  var url =  "/" + u(e.target).parent('tr').eid();
   req(url)
     .then((json) => show('#main', json))
     .catch((err) => console.error("error:", err));
