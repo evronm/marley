@@ -45,7 +45,7 @@ function Field (spec, val) {
   this.name=spec[0];
   this.type=spec[1].replace('bool', 'checkbox'); //yes, facepalm :/
   this.restrictions=spec[2];
-  this.val=val;
+  this.val=val ? val : "";
 }
 
 Field.prototype.dom=function() {
@@ -90,7 +90,7 @@ function Table(json) {
   this.data=json[1];
 }
 Table.prototype.dom=function() {
-  return table( {class: this.typ},
+  return table( {class: this.typ + " " + this.sel_type},
     thead(tr( this.spec.map ((s) => th({class: s[1]}, s[0]) ))),
     tbody(this.data.map((r) => tr({"id": "row_" + r.shift()}, r.map((f) => td(reggae2dom (f)))))));
 }

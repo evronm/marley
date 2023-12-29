@@ -48,7 +48,12 @@
         (pack "<!doctype html>" ($html NIL 
           (list (head> This User) 
           ($body NIL 
-            (list (header> This User) (nav> This QS User) ($div '((id . main))))))))
+            (list 
+              (header> This User) 
+              (nav> This QS User) 
+              ($div '((id . main)))
+              ($div '((id . select)))
+              ($div '((id . msg))))))))
       (pack (mapcar '((Part)(send (intern (pack Part ">")) This User)) (sc QS ","))) )
     "html"))
    
