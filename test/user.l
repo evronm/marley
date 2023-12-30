@@ -51,10 +51,10 @@
 (test (422 ((error) (ppl "Input required") (tm "Input required") (dt "Input required") (start_addr "Input required"))) (process "post" '("itinerary" "new") NIL NIL '("user1@eml.com" . "asdf")))
 
 #user tries to create itinerary with incomplete data
-(test (422 ((error) (tm "Input required") (dt "Input required"))) (process "post" '("itinerary" "new") NIL '((ppl . 2) (start_addr . "asdf asdf")) '("user1@eml.com" . "asdf")))
+(test (422 ((error) (tm "Input required") (dt "Input required"))) (process "post" '("itinerary" "new") NIL '((ppl . "2") (start_addr . "asdf asdf")) '("user1@eml.com" . "asdf")))
 
 #user creates itinerary successfully; grab ID to add services in next test
-(match '(@Code ("instance" ("itinerary" @Itin1 @Rest))) (process "post" '("itinerary" "new") NIL '((ppl . 2) (start_addr . "asdf asdf") (dt . "2024-01-03") (tm . "11:30")) '("user1@eml.com" . "asdf")))
+(match '(@Code ("instance" ("itinerary" @Itin1 @Rest))) (process "post" '("itinerary" "new") NIL '((ppl . "2") (start_addr . "asdf asdf") (dt . "2024-01-03") (tm . "11:30")) '("user1@eml.com" . "asdf")))
 (test 201 @Code)
 
 #user adds service to existing itinerary
@@ -66,7 +66,7 @@
 (test '(@N @N @N) (get (db 'eid '+Itinerary (car @Itin1)) 'services))
 
 #user creates another itinerary
-(match '(@Code ("instance" ("itinerary" @Itin2 @Rest))) (process "post" '("itinerary" "new") NIL '((ppl . 4) (start_addr . "xxxxxx") (dt . "2024-02-08") (tm . "12:20")) '("user1@eml.com" . "asdf")))
+(match '(@Code ("instance" ("itinerary" @Itin2 @Rest))) (process "post" '("itinerary" "new") NIL '((ppl . "4") (start_addr . "xxxxxx") (dt . "2024-02-08") (tm . "12:20")) '("user1@eml.com" . "asdf")))
 (test 201 @Code)
 
 #user adds 2 services to new itinerary
@@ -77,7 +77,7 @@
 (test (200 ("instances" ("itinerary" "display" ("ro") ((start_addr "text" (ro req)) (dt "date" (ro req)) (tm "time" (ro req)) (ppl "number" (ro req)) (services "instances" (ro)) (provider "text" (ro)))) ((50 "xxxxxx" 739230 44400 4 (("url" "/service/39" "serv21" "serv21 desc") ("url" "/service/38" "serv13" "serv13 desc")) NIL) (49 "asdf asdf" 739194 41400 2 (("url" "/service/41" "serv31" "serv31 desc") ("url" "/service/40" "serv22" "serv22 desc") ("url" "/service/36" "serv11" "serv11 desc")) NIL)))) (process "get" '("itins") NIL NIL '("user1@eml.com" "asdf") ))
 
 #user3 creates itinerary
-(match '(@Code ("instance" ("itinerary" @Itin3 @Rest))) (process "post" '("itinerary" "new") NIL '((ppl . 2) (start_addr . "asdf asdf") (dt . "2024-01-03") (tm . "11:30")) '("user3@eml.com" . "asdf")))
+(match '(@Code ("instance" ("itinerary" @Itin3 @Rest))) (process "post" '("itinerary" "new") NIL '((ppl . "2") (start_addr . "asdf asdf") (dt . "2024-01-03") (tm . "11:30")) '("user3@eml.com" . "asdf")))
 (test 201 @Code)
 
 #User 1 attempts to add services to user 3's itinerary

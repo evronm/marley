@@ -15,7 +15,11 @@ const Reggae={
   instance: (json) => {
     var typ=json[0][0];
     var eid=json[0][1];
-    var url="/" + eid;
+    if (typeof(eid)=="number"){
+      var url="/" + eid;
+    } else {
+      var url="/" + typ + "/" + eid;
+    }
     var flags=json[0][2];
     var vals=json[1] || [];
     var srch=false;  //change to implement search
