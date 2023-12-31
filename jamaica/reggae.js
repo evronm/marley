@@ -96,5 +96,5 @@ function Table(json) {
 Table.prototype.dom=function() {
   return table( {class: this.typ + " " + this.sel_type},
     thead(tr( this.spec.map ((s) => th({class: s[1]}, s[0]) ))),
-    tbody(this.data.map((r) => tr({"id": "row_" + r.shift()}, r.map((f) => td(reggae2dom (f)))))));
+    tbody(this.data ? this.data.map((r) => tr({"id": "row_" + r.shift()}, r.map((f) => td(reggae2dom (f))))) : ""));
 }
