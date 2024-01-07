@@ -39,17 +39,21 @@
       (cls_nm> This)
       (if (ext? This) 
         (get This 'eid) 
-        (or Sel_type "new"))
-      (flags> This User Act)
+        (or Sel_type "new")) #Sel_type should always be present for lists; perhaps change to list_type
+      (flags> This User Act Sel_type) #if Sel_type is non-NIL, we're dealing with a list; see meth def for flags>
       (mapcar '((R) 
         (setq Rel (rel> (if (ext? This) (cls> This) This) R))
         (list R (spec> Rel User Act) (restrict> Rel User (if (= 'c Act) 'c 'u) This) )) Rels)))
 
-  (dm flags> (User Act) 
+  (dm flags> (User Act Lst?) 
     (off Flags)
-    (when (= 'c Act) (push 'Flags "new"))
-    (unless (or (and (= 'c Act) (may 'c User This)) (and (= 'u Act) (may 'u User This)) )  (push 'Flags "ro"))
-    (when (may 'd User This) (push 'Flags "del"))
+    (if Lst? 
+      (prog
+        (when (may 'c User This) (push 'Flags "new"))
+        (when (may 'd User This) (push 'Flags "del")))
+      (when (= 'c Act) (push 'Flags "new"))
+      (unless (or (and (= 'c Act) (may 'c User This)) (and (= 'u Act) (may 'u User This)) )  (push 'Flags "ro"))
+      (when (may 'd User This) (push 'Flags "del")))
     Flags)
 
   (dm list> (Path QS Post User) 
