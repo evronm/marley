@@ -94,7 +94,13 @@ function Table(json) {
   this.data=json[1];
 }
 Table.prototype.dom=function() {
-  return table( {class: this.typ + " " + this.sel_type},
+  var data=table( {class: this.typ + " " + this.sel_type},
     thead(tr( this.spec.map ((s) => th({class: s[1]}, s[0]) ))),
     tbody(this.data ? this.data.map((r) => tr({"id": "row_" + r.shift()}, r.map((f) => td(reggae2dom (f))))) : ""));
+  var new_url="/"+this.typ+"/new";
+  if (this.type.includes("new")) {
+    return div(new_url, data)
+  } else {
+    return data;
+  }
 }
