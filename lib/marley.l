@@ -29,7 +29,7 @@
     Meth (++ Path)
     Action (req_action Verb Meth)
     Targ (if (num? RR) (db 'eid '+REntity RR) (or (isa '+Rest (intern (to_cls_nm RR) (intern (confv '(ns))))) NIL)))
-    (if (and Creds (not User)) 
+    (if (and (car Creds) (not User)) #Creds is a list, so never false
       (403)
       (when (and (= Verb "post") (= "del" (assov "_method" Post ))) #I hate this, but browsers don't implement REST verbs, goddammit!!
         (setq Verb "del")
