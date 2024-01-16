@@ -69,7 +69,7 @@
 (class +Service +REntity +Rest)
   (var perms (crud rc rm))
   (dm owner> () (get This 'venue))
-  (dm group_mem> (User) (isa '+Venue User))
+  (dm grp_mem> (User) (isa '+Venue User))
   (dm set_owner>(User) (put> This 'venue User))
 
   (rel nm (+Need +Sn +Aux +Key +String) (venue) (crud cr rm))

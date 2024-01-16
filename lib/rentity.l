@@ -10,7 +10,7 @@
   (dm role_pos> (User) #usually users and anons get the same perms; and caddr and last happen to be the same.  Need to watch out for this and may want to change it.
     (cond 
       ((= User (owner> This)) 'car)
-      ((group_mem> This User) 'cadr)
+      ((grp_mem> This User) 'cadr)
       ((bool User) 'caddr)
       (T 'last )))
 
@@ -19,7 +19,7 @@
     (chop ((role_pos> This User) Perms)))
 
   (dm owner> () This)
-  (dm group_mem> (User) NIL) #no priveleged groups by default
+  (dm grp_mem> (User) NIL) #no priveleged groups by default
   (dm cls> () (if (ext? This) (car (type This)) (name This)))
   (dm cls_nm> () (lowc (pack (cdr (chop (cls> This)))) ))
   (dm url> () (pack "/" (cls_nm> This) "/" (when (ext? This) (get This 'eid))))
