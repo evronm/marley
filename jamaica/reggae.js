@@ -97,7 +97,7 @@ Table.prototype.dom=function() {
   var data=table( {class: this.typ + " " + this.sel_type},
     thead(tr( this.spec.map ((s) => th({class: s[1]}, s[0]) ))),
     tbody(this.data ? this.data.map((r) => tr({"id": "row_" + r.shift()}, r.map((f) => td(reggae2dom (f))))) : ""));
-  var new_url="/"+this.typ+"/new";
+  var new_url=a({href:"/"+this.typ+"/new"}, "New");
   if (this.flags.includes("new")) {
     return div(new_url, data)
   } else {

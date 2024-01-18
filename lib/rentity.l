@@ -9,7 +9,7 @@
   #override this to use more than the default permission slots (owner, group, logged in, and anon)
   (dm role_pos> (User) #usually users and anons get the same perms; and caddr and last happen to be the same.  Need to watch out for this and may want to change it.
     (cond 
-      ((= User (owner> This)) 'car)
+      ((and User (= User (owner> This))) 'car)
       ((grp_mem> This User) 'cadr)
       ((bool User) 'caddr)
       (T 'last )))
@@ -18,7 +18,7 @@
     (setq Perms (car (or (get This 'perms) (var: perms))))
     (chop ((role_pos> This User) Perms)))
 
-  (dm owner> () This)
+  (dm owner> () (get This (car (or (get This 'owner_rel) (var: owner_rel)))))
   (dm grp_mem> (User) NIL) #no priveleged groups by default
   (dm cls> () (if (ext? This) (car (type This)) (name This)))
   (dm cls_nm> () (lowc (pack (cdr (chop (cls> This)))) ))

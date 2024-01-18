@@ -44,6 +44,7 @@
 
 (class +User +REntity +Rest)
   (var perms (cud r c))
+  (dm owner> () This)
   (rel eml (+Need +Key +Email) (crud r c))
   (rel pw (+Need +Key +Password) (cu NIL c))
   (rel salt (+String) NIL)
@@ -67,8 +68,8 @@
   (rel itins (+List +Joint) provider (+Itinerary) (rd crd NIL))
 
 (class +Service +REntity +Rest)
+  (var owner_rel venue)
   (var perms (crud rc rm))
-  (dm owner> () (get This 'venue))
   (dm grp_mem> (User) (isa '+Venue User))
   (dm set_owner>(User) (put> This 'venue User))
 
@@ -83,8 +84,8 @@
 
 
 (class +Itinerary +REntity +Rest)
+  (var owner_rel cust)
   (var perms (crud r c NIL))
-  (dm owner> () (get This 'cust))
   (dm set_owner>(User) (put> This 'cust User))
   (dm grp_mem> (User) (= User (get This 'provider)))
 
