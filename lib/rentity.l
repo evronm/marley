@@ -19,6 +19,7 @@
     (chop ((role_pos> This User) Perms)))
 
   (dm owner> () (get This (car (or (get This 'owner_rel) (var: owner_rel)))))
+  (dm set_owner>(User) (put> This (car (or (get This 'owner_rel) (var: owner_rel))) User))
   (dm grp_mem> (User) NIL) #no priveleged groups by default
   (dm cls> () (if (ext? This) (car (type This)) (name This)))
   (dm cls_nm> () (lowc (pack (cdr (chop (cls> This)))) ))

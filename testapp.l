@@ -71,7 +71,6 @@
   (var owner_rel venue)
   (var perms (crud rc rm))
   (dm grp_mem> (User) (isa '+Venue User))
-  (dm set_owner>(User) (put> This 'venue User))
 
   (rel nm (+Need +Sn +Aux +Key +String) (venue) (crud cr rm))
   (rel desc (+Need +Idx +String) (crud rc cm))
@@ -86,7 +85,6 @@
 (class +Itinerary +REntity +Rest)
   (var owner_rel cust)
   (var perms (crud r c NIL))
-  (dm set_owner>(User) (put> This 'cust User))
   (dm grp_mem> (User) (= User (get This 'provider)))
 
   (rel start_addr (+Need +String) (crud r cr NIL))
