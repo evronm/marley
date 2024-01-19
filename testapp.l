@@ -69,8 +69,8 @@
 
 (class +Service +REntity +Rest)
   (var owner_rel venue)
+  (var grp +Venue)
   (var perms (crud rc rm))
-  (dm grp_mem> (User) (isa '+Venue User))
 
   (rel nm (+Need +Sn +Aux +Key +String) (venue) (crud cr rm))
   (rel desc (+Need +Idx +String) (crud rc cm))
@@ -85,7 +85,7 @@
 (class +Itinerary +REntity +Rest)
   (var owner_rel cust)
   (var perms (crud r c NIL))
-  (dm grp_mem> (User) (= User (get This 'provider)))
+  #(dm grp_mem> (User) (= User (get This 'provider)))
 
   (rel start_addr (+Need +String) (crud r cr NIL))
   (rel dt (+Need +Idx +FDate) (crud r cr NIL))

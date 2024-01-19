@@ -20,7 +20,7 @@
 
   (dm owner> () (get This (car (or (get This 'owner_rel) (var: owner_rel)))))
   (dm set_owner>(User) (put> This (car (or (get This 'owner_rel) (var: owner_rel))) User))
-  (dm grp_mem> (User) NIL) #no priveleged groups by default
+  (dm grp_mem>(User) (isa (car (or (get This 'grp) (var: grp))) User))
   (dm cls> () (if (ext? This) (car (type This)) (name This)))
   (dm cls_nm> () (lowc (pack (cdr (chop (cls> This)))) ))
   (dm url> () (pack "/" (cls_nm> This) "/" (when (ext? This) (get This 'eid))))
