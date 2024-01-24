@@ -113,6 +113,7 @@
           (rollback)
           (prog1 (list 422 (cons '(error) Errs)) (setq Errs NIL)) ) 
         (commit)
+        (when (and (isa '+user E) (not User)) (setq User E)) #anon creating a new user
         (list 201 (list "instance" (spec> E User 'u) (vals> E User 'u)))) ) 
 
    (dm rest_del> (Meth Path QS Post User)
