@@ -6,10 +6,6 @@
 (load "lib/er_mods.l")
 (load (pack (confv '(client)) "/client.l"))
 
-(de authn (Creds)
-  (let (Cls (intern "+User" (intern (confv '(ns)))))
-    (setq User (db 'eml Cls (car Creds))))
-    (and User (= (pw_hash (cdr Creds) (get User 'salt)) (get User 'pw)) User)) #User needs to show up twice to prevent error and return User.
 
 (de req_action (Verb Meth) 
   (if (or (= "new" Meth ) (and (nil? Meth) (= "post" Verb)))
@@ -25,7 +21,7 @@
   (default Path (confv '(default_path))) 
   (let (
     RR (any (++ Path)) #RR = Requested Resource
-    User (authn Creds)
+    User (authn> '+user Creds)
     Meth (++ Path)
     Action (req_action Verb Meth)
     Targ (if (num? RR) (db 'eid '+REntity RR) (or (isa '+Rest (intern (to_cls_nm RR) (intern (confv '(ns))))) NIL)))
@@ -65,6 +61,12 @@
 (class +user +REntity)
   (var perms (cud r c))
   (dm owner> () This)
+  (dm authn> (Creds)
+    (let User(db 'eml '+user (car Creds))
+    (and User (= (pw_hash (cdr Creds) (get User 'salt)) (get User 'pw)) User)))
+
+
+
   (rel eml (+Need +Key +Email) (crud r c))
   (rel pw (+Need +Key +Password) (cu NIL c))
   (rel salt (+String) NIL)
