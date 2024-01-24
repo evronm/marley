@@ -62,4 +62,10 @@
 
 (pool (confv '(pool)))
 
-
+(class +user +REntity)
+  (var perms (cud r c))
+  (dm owner> () This)
+  (rel eml (+Need +Key +Email) (crud r c))
+  (rel pw (+Need +Key +Password) (cu NIL c))
+  (rel salt (+String) NIL)
+  

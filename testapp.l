@@ -42,12 +42,7 @@
   (rel nm (+Fold +Ref +String) NIL) 
   (rel nd (+List +Joint +Ref) w (+Nd) NIL)
 
-(class +User +REntity +Rest)
-  (var perms (cud r c))
-  (dm owner> () This)
-  (rel eml (+Need +Key +Email) (crud r c))
-  (rel pw (+Need +Key +Password) (cu NIL c))
-  (rel salt (+String) NIL)
+(class +User +user +Rest)
   (rel addr (+Idx +String) (crud r c))
   (rel nm (+Need +Sn +Idx +String) (crud r c))
   (rel itins (+List +Joint) cust (+Itinerary) (rud r NIL))
