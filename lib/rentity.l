@@ -1,7 +1,6 @@
 
 #This is a wrapper class for +Entity which adds a bunch of REST methods.
 (class +REntity +Entity) 
-  #(var perms (~(confv '(default_cls_perms)))) #kind of ugly; requires some thought to grok; bear in mind `var` is an f-expression  (crud r c) as of now...
   (var perms ~(confv '(default_cls_perms))) #kind of ugly; `var` is an f-expression  (crud r c) as of now...
 
   (dm T @ (put> This 'eid (genKey 'eid '+REntity)))  #Every addressable entity has a unique ID.
@@ -16,7 +15,6 @@
       (T 'last )))
 
   (dm perms> (User)
-    #(setq Perms (car (or (get This 'perms) (var: perms))))
     (setq Perms (or (get This 'perms) (var: perms)))
     (chop ((role_pos> This User) Perms)))
 

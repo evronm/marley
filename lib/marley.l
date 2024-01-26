@@ -59,7 +59,6 @@
 (pool (confv '(pool)))
 
 (class +user +REntity)
-  #(var perms (cud r c))
   (var perms cud r c)
   (dm owner> () This)
   (dm authn> (Creds)
