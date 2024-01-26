@@ -59,7 +59,8 @@
 (pool (confv '(pool)))
 
 (class +user +REntity)
-  (var perms (cud r c))
+  #(var perms (cud r c))
+  (var perms cud r c)
   (dm owner> () This)
   (dm authn> (Creds)
     (let User(db 'eml '+user (car Creds))
@@ -71,3 +72,5 @@
   (rel pw (+Need +Key +Password) (cu NIL c))
   (rel salt (+String) NIL)
   
+(class +Tag +REntity +Rest)
+  (var perms crud rc r)

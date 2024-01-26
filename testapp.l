@@ -48,7 +48,7 @@
   (rel itins (+List +Joint) cust (+Itinerary) (rud r NIL))
 
 (class +Venue +User)
-  (var perms (crud r cr))
+  (var perms crud r cr)
   (rel nm (+Need +Sn +Idx +String) (crud r rc))
   (rel desc (+Need +Idx +String) (crud r rc))
   (rel providers (+List +Joint) venues (+Provider) (crd crd r))
@@ -56,7 +56,7 @@
   (rel loc (+Ref +Link) NIL (+Nd) NIL)
 
 (class +Provider +User)
-  (var perms (crud r cr))
+  (var perms crud r cr)
   (rel nm (+Need +Sn +Idx +String) (crud r rc))
   (rel desc (+Need +Idx +String) (crud r rc))
   (rel venues (+List +Joint) providers (+Venue) (rd crd r))
@@ -65,7 +65,7 @@
 (class +Service +REntity +Rest)
   (var owner_rel venue)
   (var grp +Venue)
-  (var perms (crud rc rm))
+  (var perms crud rc rm)
 
   (rel nm (+Need +Sn +Aux +Key +String) (venue) (crud cr rm))
   (rel desc (+Need +Idx +String) (crud rc cm))
@@ -79,7 +79,7 @@
 
 (class +Itinerary +REntity +Rest)
   (var owner_rel cust)
-  (var perms (crud r c NIL))
+  (var perms crud r c NIL)
   #(dm grp_mem> (User) (= User (get This 'provider)))
 
   (rel start_addr (+Need +String) (crud r cr NIL))
