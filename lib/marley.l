@@ -73,3 +73,16 @@
   
 (class +Tag +REntity +Rest)
   (var perms crud rc r)
+  (dm T (Tag) 
+    (or (db 'tag This Tag) (super '((tag . Tag)))))
+  (rel tag (+Key +String) (crud cr r))
+  (rel ent (+List +Ref +Joint) NIL tags (+taggable) (crud crud r))
+
+(class +taggable +REntity)
+  (rel tags (+List +Ref +Joint) NIL ent (+Tag) (crud crud r))
+  (dm rest_post> (Meth Path QS Post User) 
+    (let (Res (super Meth Path QS Post User))
+      (ifn (= (car Res) 200)
+        Res
+        (let (E (db 'id '+REntity (caddr Res)))
+          (put E 'tags (mapcar '((Tag)()) (assov 'tags Post)))))))
