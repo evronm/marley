@@ -8,11 +8,11 @@
 
 
 (de req_action (Verb Meth) 
-  (if (or (= "new" Meth ) (and (nil? Meth) (= "post" Verb)))
+  (if (= "new" Meth ) 
     'c
     (if (= "get" Verb) 
       'r
-      (if (and (= "post" Verb) (num? (any Meth))) 
+      (if (= "post" Verb)  
         'u 
         (if (= "del" Verb 'd 'x))))))  # x should never show up in permissions.
 

@@ -32,10 +32,7 @@
       (uniq (delete NIL (append (try 'rels> (car (type This)) User Act ) ((if (ext? This) meta get) This 'rels)) ))))
 
   (dm spec> (User Act Sel_type)
-    (setq Rels 
-      (if (n== Act 'c)
-        (rels> This User Act)
-        (filter '((R)(not (isa '+Link (rel> This R)))) (rels> This User Act))))
+    (setq Rels (rels> This User Act))
     (list
       (cls_nm> This)
       (if (ext? This) 

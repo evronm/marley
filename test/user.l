@@ -20,16 +20,16 @@
   (process "get" '("provider" "new")))
 
 #anon attempts to create empty user
-(test (422 ((error) (nm "Input required") (pw "Input required") (eml "Input required"))) (process "post" '("user")))
+(test (422 ((error) (nm "Input required") (pw "Input required") (eml "Input required"))) (process "post" '("user" "new")))
 
 #anon attempts to create user with missing data
-(test (422 ((error) (nm "Input required") (pw "Input required"))) (process "post" '("user") NIL '((eml . "adasdf@eml.com"))))
+(test (422 ((error) (nm "Input required") (pw "Input required"))) (process "post" '("user" "new") NIL '((eml . "adasdf@eml.com"))))
 
 #anon creates new user
-(test (201 @N) (process "post" '("user") NIL '((eml . "adasdf@eml.com") (nm . "asdfa") (pw . "asdf"))))
+(test (201 @N) (process "post" '("user" "new") NIL '((eml . "adasdf@eml.com") (nm . "asdfa") (pw . "asdf"))))
 
 #duplicate email
-(test (422 ((error) (eml "Not unique"))) (process "post" '("user") NIL '((eml . "adasdf@eml.com") (nm . "asdfa") (pw . "asdf"))))
+(test (422 ((error) (eml "Not unique"))) (process "post" '("user" "new") NIL '((eml . "adasdf@eml.com") (nm . "asdfa") (pw . "asdf"))))
 
 
 #anon searches for venues whose name starts with "ven1"

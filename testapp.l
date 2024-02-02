@@ -87,8 +87,8 @@
   (rel tm (+Need +FTime) (crud r cr NIL))
   (rel cust (+Joint) itins (+User) (c r NIL))
   (rel ppl (+Need +Number) (crud r rc NIL))
-  (rel services (+List +Joint) itins (+Service) (crud r crd NIL))
-  (rel provider (+Joint) itins (+Venue) (crud r cr NIL))
+  (rel services (+List +Joint) itins (+Service) (rud r r NIL))
+  (rel provider (+Joint) itins (+Venue) (rud r r NIL))
 
 (load T)
 #(bye)
