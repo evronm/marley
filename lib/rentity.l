@@ -1,4 +1,3 @@
-
 #This is a wrapper class for +Entity which adds a bunch of REST methods.
 (class +REntity +Entity) 
   (var perms ~(confv '(default_cls_perms))) #kind of ugly; `var` is an f-expression  (crud r c) as of now...
@@ -97,9 +96,11 @@
       (for R (rels> E User (req_action Verb Meth))
         (if (and (isa '+Link (meta E R)) (assoc R Post))
           (for Eid (or (pair (cdr (assoc R Post))) (list (cdr (assoc R Post))) )
-            (ifn (setq Ent (db 'eid '+REntity (any Eid)))
-              (push 'Errs (list Eid "Does not exist"))
-              (put> E R Ent)))
+            (if (num? Eid)
+              (ifn (setq Ent (db 'eid '+REntity (any Eid)))
+                (push 'Errs (list Eid "Does not exist")))
+              (setq Ent (new (intern (get (get (cls> This) (intern Meth)) 'type))) Eid))
+                (put> E R Ent))
           (let (V (cdr (assoc R Post)))
             (cond
               ((setq Err (mis> E R (or (or (format V) V) (get E R)))) (push 'Errs (list R Err )))

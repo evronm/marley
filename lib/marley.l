@@ -80,9 +80,3 @@
 
 (class +taggable +REntity)
   (rel tags (+List +Ref +Joint) NIL ent (+Tag) (crud crud r))
-  (dm rest_post> (Meth Path QS Post User) 
-    (let (Res (super Meth Path QS Post User))
-      (ifn (= (car Res) 200)
-        Res
-        (let (E (db 'id '+REntity (caddr Res)))
-          (put E 'tags (mapcar '((Tag)()) (assov 'tags Post)))))))
