@@ -62,7 +62,7 @@
   (rel venues (+List +Joint) providers (+Venue) (rd crd r))
   (rel itins (+List +Joint) provider (+Itinerary) (rd crd NIL))
 
-(class +Service +REntity +Rest)
+(class +Service +taggable +Rest)
   (var owner_rel venue)
   (var grp +Venue)
   (var perms crud rc rm)

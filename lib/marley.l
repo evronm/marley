@@ -79,4 +79,8 @@
   (rel ent (+List +Ref +Joint) NIL tags (+taggable) (crud crud r))
 
 (class +taggable +REntity)
+  (dm rels> (User Act) 
+    (let (Rels (super User Act)) 
+      (append (delete 'tags Rels) '(tags))))
+  
   (rel tags (+List +Ref +Joint) NIL ent (+Tag) (crud crud r))
