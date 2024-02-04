@@ -99,8 +99,8 @@
             (if (num? Eid)
               (ifn (setq Ent (db 'eid '+REntity (any Eid)))
                 (push 'Errs (list Eid "Does not exist")))
-              (setq Ent (new (intern (get (get (cls> This) (intern Meth)) 'type))) Eid))
-                (put> E R Ent))
+              (setq Ent (new T (get (meta E R) 'type)) Eid))
+              (put> E R Ent))
           (let (V (cdr (assoc R Post)))
             (cond
               ((setq Err (mis> E R (or (or (format V) V) (get E R)))) (push 'Errs (list R Err )))

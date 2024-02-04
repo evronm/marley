@@ -17,7 +17,7 @@
 
 
 
-(post 'service '(  ("nm" . "serv11") ("desc" . "serv11 desc") ("duration" . "1") ("price" . "10") ("capacity" . "12") ("max_grp" . "4")) '("ven1@eml.com" . "asdf"))
+(post 'service '(  ("nm" . "serv11") ("desc" . "serv11 desc") ("duration" . "1") ("price" . "10") ("capacity" . "12") ("max_grp" . "4") (tags . "asdf")) '("ven1@eml.com" . "asdf"))
 (post 'service '(  ("nm" . "serv12") ("desc" . "serv12 desc") ("duration" . "2") ("price" . "20") ("capacity" . "13") ("max_grp" . "5")) '("ven1@eml.com" . "asdf"))
 (post 'service '(  ("nm" . "serv13") ("desc" . "serv13 desc") ("duration" . "3") ("price" . "30") ("capacity" . "14") ("max_grp" . "6")) '("ven1@eml.com" . "asdf"))
 
