@@ -74,7 +74,7 @@
 (class +Tag +REntity +Rest)
   (var perms crud rc r)
   (dm T (Tag) 
-    (or (db 'tag This Tag) (super '((tag . Tag)))))
+    (or (db 'tag This Tag) (super 'tag Tag)))
   (rel tag (+Key +String) (crud cr r))
   (rel ent (+List +Ref +Joint) NIL tags (+taggable) (crud crud r))
 

@@ -2,7 +2,7 @@
 (class +REntity +Entity) 
   (var perms ~(confv '(default_cls_perms))) #kind of ugly; `var` is an f-expression  (crud r c) as of now...
 
-  (dm T @ (put> This 'eid (genKey 'eid '+REntity)))  #Every addressable entity has a unique ID.
+  (dm T @ (put> This 'eid (genKey 'eid '+REntity)) (pass super))  #Every addressable entity has a unique ID.
   (rel eid (+Key +Number) NIL)
 
   #override this to use more than the default permission slots (owner, group, logged in, and anon)
@@ -99,7 +99,7 @@
             (if (num? Eid)
               (ifn (setq Ent (db 'eid '+REntity (any Eid)))
                 (push 'Errs (list Eid "Does not exist")))
-              (setq Ent (new T (get (meta E R) 'type)) Eid))
+              (! setq Ent (new T (get (meta E R) 'type)) Eid))
               (put> E R Ent))
           (let (V (cdr (assoc R Post)))
             (cond
