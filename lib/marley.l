@@ -73,8 +73,7 @@
   
 (class +Tag +REntity +Rest)
   (var perms crud rc r)
-  (dm T (Tag) 
-    (or (db 'tag This Tag) (super 'tag Tag)))
+
   (rel tag (+Key +String) (crud cr r))
   (rel ent (+List +Ref +Joint) NIL tags (+taggable) (crud crud r))
 
@@ -84,3 +83,15 @@
       (append (delete 'tags Rels) '(tags))))
   
   (rel tags (+List +Ref +Joint) NIL ent (+Tag) (crud crud r))
+
+  (dm rest_post> (Meth Path QS Post User) 
+      
+    (super Meth Path QS 
+      (mapcar '((KV)
+        (ifn (= (car KV) 'tags) 
+          KV 
+          (mapcar '((Tags)
+            (! get (request! '(+Tag) 'tag Tag) 'eid)) 
+            (or (pair (cdr KV)) (list (cdr KV)))) ))
+        Post) 
+      User))
