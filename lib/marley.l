@@ -90,8 +90,8 @@
       (mapcar '((KV)
         (ifn (= (car KV) 'tags) 
           KV 
-          (mapcar '((Tags)
-            (! get (request! '(+Tag) 'tag Tag) 'eid)) 
+          (mapcar '((Tag)
+            (get (request! '(+Tag) 'tag Tag) 'eid)) 
             (or (pair (cdr KV)) (list (cdr KV)))) ))
         Post) 
       User))
