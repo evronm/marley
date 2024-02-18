@@ -71,7 +71,10 @@
 
   (dm list_vals> (Path QS Post User) (mapcar '((E) (vals> E User 'r)) (list> This Path QS Post User)))
       
-  (dm rest_get_new> (Path QS Post User) (list 200 (list "instance" (spec> This User 'c))))
+  (dm rest_get_new> (Path QS Post User) 
+    (ifn Path 
+      (list 200 (list "instance" (spec> This User 'c)))
+      (send (intern (pack (cadr Path) ">")) (get This (intern (car Path))) QS User )))
   (dm rest_get_list> (Path QS Post User Sel_type) (list 200 (list "instances" (spec> This User 'r Sel_type) (list_vals> This Path QS Post User))))
   
   (dm rest_get> (Meth Path QS Post User) 
