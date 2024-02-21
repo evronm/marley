@@ -19,6 +19,8 @@
 
 (de process (Verb Path QS Post Creds)
   (default Path (confv '(default_path))) 
+  (when (not (lst? Path)) (setq Path (list Path)))
+
   (let (
     RR (any (++ Path)) #RR = Requested Resource
     User (authn> '+user Creds)

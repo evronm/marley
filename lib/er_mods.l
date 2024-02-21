@@ -26,6 +26,7 @@
   (dm list> (Parent) (get Parent (get This 'var)))
   (dm spec> (User Act) "instances")
   (dm options> (QS User) (rest_get_list> (car (get This 'type)) NIL QS NIL User "multi"))
+  (dm add> @ )
 
 (class +Password +String)
   (dm put> (Obj Old Pw)
