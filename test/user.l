@@ -58,11 +58,11 @@
 (test 201 @Code)
 
 #user adds service to existing itinerary
-(test (201 @N) (process "post" (list (car @Itin1)) NIL (list (list "services" (get (db 'nm '+Service "serv11") 'eid))) '("user1@eml.com" . "asdf")))
+(test (201 @N) (process "post" (list (car @Itin1) 'services 'add) NIL (list (list "services" (get (db 'nm '+Service "serv11") 'eid))) '("user1@eml.com" . "asdf")))
 (test '(@N) (get (db 'eid '+Itinerary (car @Itin1)) 'services))
 
 #user adds 2 more services
-(test (201 @N) (process "post" (car @Itin1) NIL (list (list "services" (get (db 'nm '+Service "serv22") 'eid) (get (db 'nm '+Service "serv31") 'eid))) '("user1@eml.com" . "asdf")))
+(test (201 @N) (process "post" (list (car @Itin1) 'services 'add) NIL (list (list "services" (get (db 'nm '+Service "serv22") 'eid) (get (db 'nm '+Service "serv31") 'eid))) '("user1@eml.com" . "asdf")))
 (test '(@N @N @N) (get (db 'eid '+Itinerary (car @Itin1)) 'services))
 
 #user creates another itinerary
@@ -81,10 +81,10 @@
 (test 201 @Code)
 
 #User 1 attempts to add services to user 3's itinerary
-(test (403) (process "post" (car @Itin3) NIL (list (list "services" (get (db 'nm '+Service "serv13") 'eid) (get (db 'nm '+Service "serv21") 'eid))) '("user1@eml.com" . "asdf")))
+(test (403) (process "post" (list (car @Itin3) 'services 'add) NIL (list (list "services" (get (db 'nm '+Service "serv13") 'eid) (get (db 'nm '+Service "serv21") 'eid))) '("user1@eml.com" . "asdf")))
 
 #user3 adds 3 services to itinerary just created
-(test (201 @N) (process "post" (car @Itin3) NIL (list (list "services" (get (db 'nm '+Service "serv53") 'eid) (get (db 'nm '+Service "serv21") 'eid) (get (db 'nm '+Service "serv31") 'eid))) '("user3@eml.com" . "asdf")))
+(test (201 @N) (process "post" (list (car @Itin3) 'services 'add) NIL (list (list "services" (get (db 'nm '+Service "serv53") 'eid) (get (db 'nm '+Service "serv21") 'eid) (get (db 'nm '+Service "serv31") 'eid))) '("user3@eml.com" . "asdf")))
 (test '(@N @N @N) (get (db 'eid '+Itinerary (car @Itin3)) 'services))
 
 
