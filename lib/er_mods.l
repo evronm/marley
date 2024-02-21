@@ -26,7 +26,11 @@
   (dm list> (Parent) (get Parent (get This 'var)))
   (dm spec> (User Act) "instances")
   (dm options> (QS User) (rest_get_list> (car (get This 'type)) NIL QS NIL User "multi"))
-  (dm add> @ )
+  (dm add> (E Post) 
+    (for Eid (assov (get This 'var) Post ) 
+      (ifn (setq Ent (db 'eid '+REntity (any Eid)))
+        (push 'Errs (list Eid "Does not exist"))
+        (put> E (get This 'var) Ent))))
 
 (class +Password +String)
   (dm put> (Obj Old Pw)

@@ -70,7 +70,7 @@
 (test 201 @Code)
 
 #user adds 2 services to new itinerary
-(test (201 @N) (process "post" (car @Itin2) NIL (list (list "services" (get (db 'nm '+Service "serv13") 'eid) (get (db 'nm '+Service "serv21") 'eid))) '("user1@eml.com" . "asdf")))
+(test (201 @N) (process "post" (list (car @Itin2) 'services 'add) NIL (list (list "services" (get (db 'nm '+Service "serv13") 'eid) (get (db 'nm '+Service "serv21") 'eid))) '("user1@eml.com" . "asdf")))
 (test '(@N @N) (get (db 'eid '+Itinerary (car @Itin2)) 'services))
 
 #user lists itineraries
