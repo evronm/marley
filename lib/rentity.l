@@ -98,7 +98,7 @@
         (setq E This))
       (if Path
         (let (Rel (meta E Meth))
-          (send (intern (pack (car Path) ">")) Rel E Post))
+          (setq Err (send (intern (pack (car Path) ">")) Rel E Post)))
         (for R (rels> E User (req_action Verb Meth))
           (if (and (isa '+Link (meta E R)) (assoc R Post))
             (for Eid (or (pair (assov R Post)) (list (assov R Post)) )

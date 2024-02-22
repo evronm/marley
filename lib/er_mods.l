@@ -30,7 +30,8 @@
     (for Eid (assov (get This 'var) Post ) 
       (ifn (setq Ent (db 'eid '+REntity (any Eid)))
         (push 'Errs (list Eid "Does not exist"))
-        (put> E (get This 'var) Ent))))
+        (put> E (get This 'var) Ent)))
+    Errs)
 
 (class +Password +String)
   (dm put> (Obj Old Pw)
