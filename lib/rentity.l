@@ -98,12 +98,14 @@
         (setq E This))
       (if Path
         (let (Rel (meta E Meth))
-          (setq Err (send (intern (pack (car Path) ">")) Rel E Post)))
+          (setq Errs (send (intern (pack (car Path) ">")) Rel E Post)))
         (for R (rels> E User (req_action Verb Meth))
           (if (and (isa '+Link (meta E R)) (assoc R Post))
-            (prog 
-              (put E R NIL)
-              (setq Err (add> (meta E R) E Post)))
+            (if (may (req_action Verb Meth) User This R)
+              (prog 
+                (put E R NIL)
+                (setq Errs (add> (meta E R) E Post)))
+              (push 'Errs (list R "Forbidden")))
             (let (V (cdr (assoc R Post)))
               (cond
                 ((setq Err (mis> E R (or (or (format V) V) (get E R)))) (push 'Errs (list R Err )))
