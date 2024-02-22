@@ -101,10 +101,9 @@
           (setq Err (send (intern (pack (car Path) ">")) Rel E Post)))
         (for R (rels> E User (req_action Verb Meth))
           (if (and (isa '+Link (meta E R)) (assoc R Post))
-            (for Eid (or (pair (assov R Post)) (list (assov R Post)) )
-              (ifn (setq Ent (db 'eid '+REntity (any Eid)))
-                (push 'Errs (list Eid "Does not exist")))
-              (put> E R Ent))
+            (prog 
+              (put E R NIL)
+              (add> (meta E R) E Post))
             (let (V (cdr (assoc R Post)))
               (cond
                 ((setq Err (mis> E R (or (or (format V) V) (get E R)))) (push 'Errs (list R Err )))
