@@ -61,6 +61,14 @@
 (test (201 @N) (process "post" (list (car @Itin1) 'services 'add) NIL (list (list "services" (get (db 'nm '+Service "serv11") 'eid))) '("user1@eml.com" . "asdf")))
 (test '(@N) (get (db 'eid '+Itinerary (car @Itin1)) 'services))
 
+#user attempts to add non-services to service
+(test (422 ((error) (2 " is the wrong type"))) (process "post" (list (car @Itin1) 'services 'add) NIL (list (list "services" (get (db 'nm '+User "user2") 'eid))) '("user1@eml.com" . "asdf")))
+
+#user creates itinerary with services
+
+#user updates itinerary with new set of services
+
+
 #user adds 2 more services
 (test (201 @N) (process "post" (list (car @Itin1) 'services 'add) NIL (list (list "services" (get (db 'nm '+Service "serv22") 'eid) (get (db 'nm '+Service "serv31") 'eid))) '("user1@eml.com" . "asdf")))
 (test '(@N @N @N) (get (db 'eid '+Itinerary (car @Itin1)) 'services))

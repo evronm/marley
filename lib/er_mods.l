@@ -29,8 +29,10 @@
   (dm add> (E Post) 
     (for Eid (assov (get This 'var) Post ) 
       (ifn (setq Ent (db 'eid '+REntity (any Eid)))
-        (push 'Errs (list Eid "Does not exist"))
-        (put> E (get This 'var) Ent)))
+        (push 'Errs (list Eid " does not exist"))
+        (ifn (= (type Ent) (get This 'type))
+          (push 'Errs (list Eid " is the wrong type"))
+          (put> E (get This 'var) Ent))))
     Errs)
 
 (class +Password +String)
