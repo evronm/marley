@@ -19,7 +19,7 @@ instance_spec ::= '[' type ','  (id | list_type) ',' '[' (flag) (',' flag)* ']' 
 
 flag ::= new | ro | del
 
-field_spec ::= '[' name ',' type ',' restrictions ']'
+field_spec ::= '[' name ',' type ',' (restrictions | options) ']'
 
 err_spec ::= '[' field ',' err ']'
 
@@ -40,14 +40,15 @@ type ::= "text" | "number" | "email" | "password" | "date" | "time" | "datetime"
 
 restrictions ::= '[' restriction ( ',' restriction)* ']'
 
-restriction ::= "ro" | "required" | min | max | permitted_values | pattern
+restriction ::= "ro" | "required" | min | max | pattern
 
 min ::= '[' 'min' ',' min_value ']'
 
 max ::= '[' 'max' ',' max_value ']'
 
-permitted_values ::= '[' 'values' ',' value (',' value)* ']'
-
 pattern ::= regex_value
 
+options ::= '[' (instances | (option (',' option)* )) ']'
+
+instance_values ::= '[' instance_value (',' instance_value)* ']'
 

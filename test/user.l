@@ -54,8 +54,7 @@
 (test (422 ((error) (tm "Input required") (dt "Input required"))) (process "post" '("itinerary" "new") NIL '((ppl . "2") (start_addr . "asdf asdf")) '("user1@eml.com" . "asdf")))
 
 #user creates itinerary successfully; grab ID to add services in next test
-(match '(@Code ("instance" ("itinerary" @Itin1 @Rest))) (process "post" '("itinerary" "new") NIL '((ppl . "2") (start_addr . "asdf asdf") (dt . "2024-01-03") (tm . "11:30")) '("user1@eml.com" . "asdf")))
-(test 201 @Code)
+(match '(201 ("instance" ("itinerary" @Itin1 @Rest))) (process "post" '("itinerary" "new") NIL '((ppl . "2") (start_addr . "asdf asdf") (dt . "2024-01-03") (tm . "11:30")) '("user1@eml.com" . "asdf")))
 
 #user adds service to existing itinerary
 (test (201 @N) (process "post" (list (car @Itin1) 'services 'add) NIL (list (list "services" (get (db 'nm '+Service "serv11") 'eid))) '("user1@eml.com" . "asdf")))
@@ -63,11 +62,6 @@
 
 #user attempts to add non-services to service
 (test (422 ((error) (2 " is the wrong type"))) (process "post" (list (car @Itin1) 'services 'add) NIL (list (list "services" (get (db 'nm '+User "user2") 'eid))) '("user1@eml.com" . "asdf")))
-
-#user creates itinerary with services
-
-#user updates itinerary with new set of services
-
 
 #user adds 2 more services
 (test (201 @N) (process "post" (list (car @Itin1) 'services 'add) NIL (list (list "services" (get (db 'nm '+Service "serv22") 'eid) (get (db 'nm '+Service "serv31") 'eid))) '("user1@eml.com" . "asdf")))
