@@ -39,7 +39,10 @@
       (flags> This User Act Sel_type) #if Sel_type is non-NIL, we're dealing with a list; see meth def for flags>
       (mapcar '((R) 
         (setq Rel (rel> (if (ext? This) (cls> This) This) R))
-        (list R (spec> Rel User Act) (restrict> Rel User (if (= 'c Act) 'c 'u) This) )) (rels> This User Act))))
+        (list R 
+          (spec> Rel User Act) 
+          (if (= 'r Act) NIL (restrict> Rel User (if (= 'c Act) 'c 'u) This) )) )
+        (rels> This User Act))))
 
   (dm flags> (User Act Lst?) 
     (off Flags)
