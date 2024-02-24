@@ -30,13 +30,11 @@
     (filter '((R) (may Act User This R) )
       (uniq (delete NIL (append (try 'rels> (car (type This)) User Act ) ((if (ext? This) meta get) This 'rels)) ))))
 
-  (dm spec> (User Act Sel_type)
+  (dm spec> (User Act)
     (list
       (cls_nm> This)
-      (if (ext? This) 
-        (get This 'eid) 
-        (or Sel_type "new")) #Sel_type should always be present for lists; perhaps change to list_type
-      (flags> This User Act Sel_type) #if Sel_type is non-NIL, we're dealing with a list; see meth def for flags>
+      (if (ext? This) (get This 'eid) "new")
+      (flags> This User Act)
       (mapcar '((R) 
         (setq Rel (rel> (if (ext? This) (cls> This) This) R))
         (list R 
@@ -79,7 +77,7 @@
     (ifn Path 
       (list 200 (list "instance" (spec> This User 'c)))
       (send (intern (pack (cadr Path) ">")) (get This (intern (car Path))) QS User )))
-  (dm rest_get_list> (Path QS Post User Sel_type) (list 200 (list "instances" (spec> This User 'r Sel_type) (list_vals> This Path QS Post User))))
+  (dm rest_get_list> (Path QS Post User) (list 200 (list "instances" (spec> This User 'r) (list_vals> This Path QS Post User))))
   
   (dm rest_get> (Meth Path QS Post User) 
     (if (ext? This)
