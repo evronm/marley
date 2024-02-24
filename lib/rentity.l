@@ -41,7 +41,9 @@
         (setq Rel (rel> (if (ext? This) (cls> This) This) R))
         (list R 
           (spec> Rel User Act) 
-          (if (= 'r Act) NIL (restrict> Rel User (if (= 'c Act) 'c 'u) This) )) )
+          (if (= 'r Act) 
+            NIL 
+            (or (try 'options> Rel NIL User) (restrict> Rel User Act This)) )) )
         (rels> This User Act))))
 
   (dm flags> (User Act Lst?) 

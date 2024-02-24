@@ -15,7 +15,7 @@ url ::= url_value
 
 description ::= string_value
 
-instance_spec ::= '[' type ','  (id | list_type) ',' '[' (flag) (',' flag)* ']' ',' '[' field_spec (',' field_spec)* ']' ']'
+instance_spec ::= '[' type ','  id  ',' '[' (flag) (',' flag)* ']' ',' '[' field_spec (',' field_spec)* ']' ']'
 
 flag ::= new | ro | del
 
@@ -27,8 +27,6 @@ type ::= string_value
 
 /* Integers, "new" and "search" apply to "instance" only; the rest apply to "instances" only */
 id ::= integer_value | "new" | "search" 
-
-list_type ::= "display" | "select" | "multi" 
 
 name ::= string_value
 
