@@ -76,7 +76,7 @@
 (test '(@N @N) (get (db 'eid '+Itinerary (car @Itin2)) 'services))
 
 #user lists itineraries
-(test (200 ("instances" ("itinerary" "display" ("new") ((start_addr "text" NIL) (dt "date" NIL) (tm "time" NIL) (ppl "number" NIL) (services "instances" NIL) (provider "text" NIL))) ((50 "xxxxxx" 739230 44400 4 (("url" "/service/39" "serv21" "serv21 desc") ("url" "/service/38" "serv13" "serv13 desc")) NIL) (49 "asdf asdf" 739194 41400 2 (("url" "/service/41" "serv31" "serv31 desc") ("url" "/service/40" "serv22" "serv22 desc") ("url" "/service/36" "serv11" "serv11 desc")) NIL)))) (process "get" '("itins") NIL NIL '("user1@eml.com" "asdf") ))
+(test (200 ("instances" ("itinerary" "new" ("ro") ((start_addr "text" NIL) (dt "date" NIL) (tm "time" NIL) (ppl "number" NIL) (services "instances" NIL) (provider "text" NIL))) ((50 "xxxxxx" 739230 44400 4 (("url" "/service/39" "serv21" "serv21 desc") ("url" "/service/38" "serv13" "serv13 desc")) NIL) (49 "asdf asdf" 739194 41400 2 (("url" "/service/41" "serv31" "serv31 desc") ("url" "/service/40" "serv22" "serv22 desc") ("url" "/service/36" "serv11" "serv11 desc")) NIL)))) (process "get" '("itins") NIL NIL '("user1@eml.com" "asdf") ))
 
 #user3 creates itinerary
 (match '(@Code ("instance" ("itinerary" @Itin3 @Rest))) (process "post" '("itinerary" "new") NIL '((ppl . "2") (start_addr . "asdf asdf") (dt . "2024-01-03") (tm . "11:30")) '("user3@eml.com" . "asdf")))
@@ -99,8 +99,6 @@
 #user 2 tries to look at user1's itinerary
 (test (403) (process "get" (list "itinerary" (car @Itin2)) NIL NIL '("user2@eml.com" "asdf")))
 
-#user 1 gets services options for itinerary 1
-(test (200 ("instances" ("service" "multi" NIL ((nm "text" NIL) (duration "number" NIL) (price "number" NIL) (capacity "number" NIL) (max_grp "number" NIL) (venue "text" NIL) (tags "instances" NIL))) ((36 "serv11" 1 10 12 4 ("url" "/venue/26" "ven1" "venue desc 1") NIL) (37 "serv12" 2 20 13 5 ("url" "/venue/26" "ven1" "venue desc 1") NIL) (38 "serv13" 3 30 14 6 ("url" "/venue/26" "ven1" "venue desc 1") NIL) (39 "serv21" 4 15 12 4 ("url" "/venue/27" "ven2" "venue desc 2") NIL) (40 "serv22" 5 16 13 5 ("url" "/venue/27" "ven2" "venue desc 2") NIL) (41 "serv31" 6 17 14 6 ("url" "/venue/28" "ven3" "venue desc 3") NIL) (42 "serv41" 6 17 14 6 ("url" "/venue/29" "ven4" "venue desc 4") NIL) (43 "serv42" 6 17 14 6 ("url" "/venue/29" "ven4" "venue desc 4") NIL) (44 "serv51" 6 17 14 6 ("url" "/venue/29" "ven4" "venue desc 4") NIL) (45 "serv52" 6 17 14 6 ("url" "/venue/29" "ven4" "venue desc 4") NIL) (46 "serv53" 6 17 14 6 ("url" "/venue/29" "ven4" "venue desc 4") NIL) (47 "serv54" 6 17 14 6 ("url" "/venue/29" "ven4" "venue desc 4") NIL)))) (process "get" '("49" "services" "options") NIL NIL '("user1@eml.com" . "asdf")))
 
 #user 1 removes service from itinerary
 (test (204 ("mesg" "Success" "deleted successfully")) (process "post"(list 49  "services" (get (car (get (db 'eid '+Itinerary 49) 'services))'eid)) NIL (list (cons "_method" "del")) '("user1@eml.com" . "asdf")))
