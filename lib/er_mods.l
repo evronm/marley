@@ -19,13 +19,13 @@
   (put *Class 'rels (append (get *Class 'rels) (list (car Lst)))) #push goes in the wrong order
   (set_perms> (get *Class (car Lst)) (last Lst)))
 
-#{(extend +Ref)
-  (dm options> (QS User) (rest_get_list> (car (get This 'type)) NIL QS NIL User "select"))}#
 
 (extend +List)
   (dm list> (Parent) (get Parent (get This 'var)))
+  (dm options> (QS User) 
+    (let (E (car (get This 'type)) Rs (or (car (get E 'list_rels)) '(nm desc)) )
+      (list "instances" (mapcar '((R)(list R (spec> (get E R)))) Rs) (list_vals> E Path QS Post User Rs))))
   (dm spec> (User Act) "instances")
-  (dm options> (QS User) (rest_get_list> (car (get This 'type)) NIL QS NIL User "multi"))
   (dm add> (E Post) 
     (for Eid (assov (get This 'var) Post ) 
       (ifn (setq Ent (db 'eid '+REntity (any Eid)))

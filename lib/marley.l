@@ -75,6 +75,7 @@
   
 (class +Tag +REntity +Rest)
   (var perms crud rc r)
+  (var list_rels (nm))
 
   (rel nm (+Key +String) (crud cr r))
   (rel ent (+List +Ref +Joint) NIL tags (+taggable) (crud crud r))

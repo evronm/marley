@@ -80,6 +80,7 @@
 (class +Itinerary +REntity +Rest)
   (var owner_rel cust)
   (var perms crud r c NIL)
+  (var list_rels (dt start_addr))
   #(dm grp_mem> (User) (= User (get This 'provider)))
 
   (rel start_addr (+Need +String) (crud r cr NIL))

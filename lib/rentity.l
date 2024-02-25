@@ -57,7 +57,7 @@
 
   (dm list> (Path QS Post User) 
     (ifn QS
-        (lsearch NIL (list (list 'nm This)))
+        (lsearch NIL (list (list 'eid This)))
         (apply lsearch (qs2srch This QS))))
 
   (dm val> (R) 
@@ -66,12 +66,13 @@
         (if (ext? V ) (link> V) V)
         (mapcar '((E)(link> E)) V))))
 
-  (dm vals> (User Act) 
-    (if (== 'c Act)
-      (mapcar '((R)(val> This R)) (rels> This User Act))
-      (cons (get This 'eid) (mapcar '((R)(val> This R)) (rels> This User Act)))))
+  (dm vals> (User Act Rels) 
+    (let Vals (mapcar '((R)(val> This R)) (or Rels (rels> This User Act)))
+      (if (== 'c Act)
+        Vals
+        (cons (get This 'eid) Vals))))
 
-  (dm list_vals> (Path QS Post User) (mapcar '((E) (vals> E User 'r)) (list> This Path QS Post User)))
+  (dm list_vals> (Path QS Post User Rels) (mapcar '((E) (vals> E User 'r Rels)) (list> This Path QS Post User)))
       
   (dm rest_get_new> (Path QS Post User) 
     (ifn Path 
