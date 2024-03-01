@@ -41,7 +41,7 @@
           (spec> Rel User Act) 
           (if (= 'r Act) 
             NIL 
-            (or (try 'options> Rel NIL User) (restrict> Rel User Act This)) )) )
+            (if (= Act 'r) NIL (or (try 'options> Rel NIL User) (restrict> Rel User Act This)) ))) )
         (rels> This User Act))))
 
   (dm flags> (User Act Lst?) 
@@ -60,14 +60,16 @@
         (lsearch NIL (list (list 'eid This)))
         (apply lsearch (qs2srch This QS))))
 
-  (dm val> (R) 
+  (dm val> (R Act) 
     (let (V (get This R))
-      (if (atom V)
+      (if2 (atom V) (not (= Act 'r))
+        (if (ext? V ) (get V 'eid) V)
         (if (ext? V ) (link> V) V)
+        (mapcar '((E)(get E 'eid)) V)
         (mapcar '((E)(link> E)) V))))
 
   (dm vals> (User Act Rels) 
-    (let Vals (mapcar '((R)(val> This R)) (or Rels (rels> This User Act)))
+    (let Vals (mapcar '((R)(val> This R Act)) (or Rels (rels> This User Act)))
       (if (== 'c Act)
         Vals
         (cons (get This 'eid) Vals))))
