@@ -24,7 +24,7 @@
   (dm list> (Parent) (get Parent (get This 'var)))
   (dm options> (QS User) 
     (let (E (car (get This 'type)) Rs (or (car (get E 'list_rels)) '(nm desc)) )
-      (list "instances" (mapcar '((R)(list R (spec> (get E R)))) Rs) (list_vals> E Path QS Post User Rs))))
+      (list (mapcar '((R)(list R (spec> (get E R)))) Rs) (list_vals> E Path QS Post User Rs))))
   (dm spec> (User Act) "instances")
   (dm add> (E Post) 
     (for Eid (assov (get This 'var) Post ) 
