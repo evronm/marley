@@ -24,7 +24,7 @@
 (test (403) (process  "post" (get (db 'nm '+Service "serv11") 'eid) NIL '((tags tag1 tag2 tag3)) '(ven2@eml.com . asdf)))
 
 #second venue reuses tag 
-#(test (201 ("instance" ("service" 39 ("del") ((nm "text" (req)) (desc "text" (req)) (duration "number" (req)) (price "number" (req)) (capacity "number" (req)) (max_grp "number" NIL) (venue "text" (req)) (tags "instances" NIL))) (39 "serv21" "serv21 desc" 4 15 12 4 ("url" "/venue/27" "ven2" "venue desc 2") (("url" "/tag/54" tag3 NIL) ("url" "/tag/53" tag2 NIL) ("url" "/tag/52" tag1 NIL))))) (process  "post" (get (db 'nm '+Service "serv21") 'eid) NIL '((tags tag1 tag2 tag3)) '(ven2@eml.com . asdf)))
+(test (201 ("instance" ("service" 39 ("del") ((nm "text" (req)) (desc "text" (req)) (duration "number" (req)) (price "number" (req)) (capacity "number" (req)) (max_grp "number" NIL) (venue "text" (req)) (tags "instances" (((nm "text")) ((52 tag1) (53 tag2) (54 tag3)))))) (39 "serv21" "serv21 desc" 4 15 12 4 ("url" "/venue/27" "ven2" "venue desc 2") (("url" "/tag/54" tag3 NIL) ("url" "/tag/53" tag2 NIL) ("url" "/tag/52" tag1 NIL))))) (process  "post" (get (db 'nm '+Service "serv21") 'eid) NIL '((tags tag1 tag2 tag3)) '(ven2@eml.com . asdf)))
 
 #tag count is still 3
 (test 3 (length (lsearch NIL '((nm +Tag)))))
