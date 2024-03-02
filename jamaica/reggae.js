@@ -49,6 +49,7 @@ function Field (spec, val) {
   this.name=spec[0];
   this.type=spec[1].replace('bool', 'checkbox'); //yes, facepalm :/
   this.restrictions=spec[2];
+  this.options=spec[2]; //in the case of an instances field.
   this.val=val ? val : "";
 }
 

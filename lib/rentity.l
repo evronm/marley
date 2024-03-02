@@ -41,7 +41,7 @@
           (spec> Rel User Act) 
           (if (= 'r Act) 
             NIL 
-            (if (= Act 'r) NIL (or (try 'options> Rel NIL User) (restrict> Rel User Act This)) ))) )
+            (if (= Act 'r) NIL  (restrict> Rel User Act This) ))) )
         (rels> This User Act))))
 
   (dm flags> (User Act Lst?) 

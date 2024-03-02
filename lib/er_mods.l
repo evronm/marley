@@ -12,6 +12,7 @@
     (setq Restr NIL)
     (when (isa '+Need This ) (push 'Restr 'req))
     (when (ro> This User Act E) (push 'Restr 'ro))
+    (when (method 'options> This) (push 'Restr (options> This)))
     Restr)
 
 (redef rel Lst
@@ -23,8 +24,8 @@
 (extend +List)
   (dm list> (Parent) (get Parent (get This 'var)))
   (dm options> (QS User) 
-    (let (E (car (get This 'type)) Rs (or (car (get E 'list_rels)) '(nm desc)) )
-      (list (mapcar '((R)(list R (spec> (get E R)))) Rs) (list_vals> E Path QS Post User Rs))))
+    (let (E (car (get This 'type)) Rs (or (car (get E 'list_rels)) '(nm desc)) )  ### This needs to go in the config file ###
+      (list "options" (mapcar '((R)(list R (spec> (get E R)))) Rs) (list_vals> E Path QS Post User Rs))))
   (dm spec> (User Act) "instances")
   (dm add> (E Post) 
     (for Eid (assov (get This 'var) Post ) 
