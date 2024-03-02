@@ -91,13 +91,12 @@ Field.prototype.instances=function() {
 
 function Table(json) {
   this.typ=json[0][0];
-  this.sel_type=json[0][1];
-  this.flags=json[0][2];
+  this.flags=json[0][1];
   this.spec=json[0][3];
   this.data=json[1];
 }
 Table.prototype.dom=function() {
-  var data=table( {class: this.typ + " " + this.sel_type},
+  var data=table( {class: this.typ},
     thead(tr( this.spec.map ((s) => th({class: s[1]}, s[0]) ))),
     tbody(this.data ? this.data.map((r) => tr({"id": "row_" + r.shift()}, r.map((f) => td(reggae2dom (f))))) : ""));
   var new_url=a({href:"/"+this.typ+"/new"}, "New");
