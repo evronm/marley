@@ -84,7 +84,7 @@ Field.prototype.ro=function() {
 }
 
 Field.prototype.instances=function() {
-  return VanTable(this.restrictions.options[1], this.restrictions.options[2],{select:"multi"})
+  return VanTable(this.restrictions.options[1], this.restrictions.options[2],{select:"multi", field_name: this.name})
   
 }
 
@@ -110,7 +110,7 @@ function VanTable (cols, data, conf) {
 
   return table({class: conf.class, id: conf.id}, 
     thead(
-      ((conf.select ? [""] : []).concat(cols)).map((col) => th({class: col[0]}, col[0]))
+      ((conf.select ? [""] : []).concat(cols)).map((col) => th({class: col[0]}, labels[col[0]]))
     ),
     tbody(
       conf.select ? 
