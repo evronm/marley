@@ -22,7 +22,6 @@ function show(target, json) {
   u(target).empty().append(reggae2dom(json));
   u('#main form').on('submit', formSubmit);
   u('a').handle('click', urlClick)
-  u('.showRels').handle('click', showRels)
   u('.display tbody tr').handle('click', rowClick); //This avoids the behavior for selection tables and also for the header; not sure why the latter is necessary.
   u('.select tr').handle('click', selClick);
 }
@@ -90,19 +89,6 @@ function rowClick(e) {
     .catch((err) => console.error("error:", err));
 }
 
-function showRels(e) {
-  e.preventDefault();
-  e.target.hidden=true;
-  var url=e.target.closest('form').action+"/"+e.target.classList[1]+"/options";
-  var div_id=e.target.classList[1]+"_list";
-  u(e.target).after(div({id:div_id, class:"select"}));
-  req(url)
-    .then((json) =>{
-      show("#"+div_id, json)
-      u(e.target.closest('form')).find('span.rel a').each((l) => {u(document.getElementById(l.id.replace(/^link/, 'row'))).addClass('selected')})
-    })
-    .catch((err) => console.error("error:", err));
-}
 function selClick(e) {
   var url=e.target.closest('form').action
   var body= "services=" + u(e.target.closest('tr')).eid();

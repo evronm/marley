@@ -48,13 +48,17 @@ u.prototype.eid=function() {
 function Field (spec, val) {
   this.name=spec[0];
   this.type=spec[1].replace('bool', 'checkbox'); //yes, facepalm :/
-  this.restrictions=spec[2];
-  this.options=spec[2]; //in the case of an instances field.
+  this.restrictions={};
+  if (spec[2]) {
+    this.restrictions.ro=spec[2].includes("ro");
+    this.restrictions.required=spec[2].includes("required");
+    ["min", "max", "options"].forEach((r) => this.restrictions[r]=spec[2].find((restr) => restr[0]==r))
+  }
   this.val=val ? val : "";
 }
 
 Field.prototype.dom=function() {
-  if (this.restrictions.indexOf("ro")>-1) {
+  if (this.restrictions.ro) {
     return this.ro();
   }
   if (this[this.type]){
@@ -80,14 +84,8 @@ Field.prototype.ro=function() {
 }
 
 Field.prototype.instances=function() {
-  if (this.restrictions.indexOf("ro")>-1) {
-    return [this.label(), reggae2dom(this.val)]
-  } else {
-    return [this.label(), 
-      this.val ? reggae2dom(this.val).map((u) => span({class: "rel"}, u)) : "", 
-      button({class: "showRels " + this.name}, "✎"),
-      input({type: "hidden", name: this.name}, this.val ? this.val.map((v) => v[0].replace(/.*\//,"")) : "" )]
-  }
+  return VanTable(this.restrictions.options.shift(), this.restrictions.options[1],{select:"multi"})
+  
 }
 
 function Table(json) {
@@ -106,4 +104,20 @@ Table.prototype.dom=function() {
   } else {
     return data;
   }
+}
+function VanTable (cols, data, conf) {
+  if (conf.select){ var selector=conf.select == "one" ? "radio" : "checkbox"}
+
+  return table({class: conf.class, id: conf.id}, 
+    thead(
+      ((conf.select ? [""] : []).concat(cols)).map((col) => th({class: col}, col))
+    ),
+    tbody(
+      conf.select ? 
+        data.map((row) => tr(td(input({type: selector, name: conf.field_name, value: row.shift()})), row.map((cell) => td(cell))))
+      : 
+        data.map((row) => tr({id: row.shift()}, row.map((cell) => td(cell))))
+    )
+  );
+
 }
