@@ -32,7 +32,14 @@ const Reggae={
     }
 
   },
-  instances: (json) => {return new Table(json).dom()},
+  instances: (json) => {
+    var typ=json[0][0];
+    var flags=json[0][1];
+    var spec=json[0][3];
+    var data=json[1];
+    return VanTable(spec.map((s) => s), data.map((d) => reggae2dom(d)), {});
+    //return new Table(json).dom()
+  },
   mesg: (title, content) => {
     return "asdf";
   },
@@ -88,29 +95,12 @@ Field.prototype.instances=function() {
   
 }
 
-function Table(json) {
-  this.typ=json[0][0];
-  this.flags=json[0][1];
-  this.spec=json[0][3];
-  this.data=json[1];
-}
-Table.prototype.dom=function() {
-  var data=table( {class: this.typ},
-    thead(tr( this.spec.map ((s) => th({class: s[1]}, s[0]) ))),
-    tbody(this.data ? this.data.map((r) => tr({"id": "row_" + r.shift()}, r.map((f) => td(reggae2dom (f))))) : ""));
-  var new_url=a({href:"/"+this.typ+"/new"}, "New");
-  if (this.flags.includes("new")) {
-    return div(new_url, data)
-  } else {
-    return data;
-  }
-}
 function VanTable (cols, data, conf) {
   if (conf.select){ var selector=conf.select == "one" ? "radio" : "checkbox"}
 
   return table({class: conf.class, id: conf.id}, 
     thead(
-      ((conf.select ? [""] : []).concat(cols)).map((col) => th({class: col[0]}, labels[col[0]]))
+      ((conf.select ? [""] : []).concat(cols)).map((col) => th({class: col[0]}, labels[col[0]] ? labels[col[0]] : col[0]))
     ),
     tbody(
       conf.select ? 
