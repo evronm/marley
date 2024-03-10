@@ -81,6 +81,8 @@
       (list 200 (list "instance" (spec> This User 'c)))
       (send (intern (pack (cadr Path) ">")) (get This (intern (car Path))) QS User )))
   (dm rest_get_list> (Path QS Post User) (list 200 (list "instances" (spec> This User 'r) (list_vals> This Path QS Post User))))
+  (dm rest_get_mine> (Path QS Post User) 
+    (list 200 (list "instances" (spec> This User 'r) (list_vals> This Path (list (cons (car (get This 'owner_rel)) (get User 'eid))) Post User))))
   
   (dm rest_get> (Meth Path QS Post User) 
     (if (ext? This)

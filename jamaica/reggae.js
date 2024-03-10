@@ -38,7 +38,6 @@ const Reggae={
     var spec=json[0][3];
     var data=json[1];
     return VanTable(spec.map((s) => s), data.map((d) => reggae2dom(d)), {});
-    //return new Table(json).dom()
   },
   mesg: (title, content) => {
     return "asdf";

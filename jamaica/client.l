@@ -24,6 +24,7 @@
       ($script '((type text/javascript) (src . https://cdn.jsdelivr.net/npm/umbrellajs)))
       ($script '((type text/javascript) (src . https://cdn.jsdelivr.net/gh/vanjs-org/van/public/van-1.2.0.nomodule.min.js)))
       ($script '((type text/javascript)) (pack (in "jamaica/reggae.js" (till))))
+      ($script '((type text/javascript)) (pack (in "jamaica/reggae_or.js" (till))))
       ($script '((type text/javascript)) (pack (in "jamaica/jamaica.js" (till))))))) 
 
   (dm account> (User)

@@ -19,7 +19,7 @@
   (dm nav> (User)
     (cond 
       ((not User) ($div '((id . nav)) (list ($a '((href . "/venue/list")) "Browse Venues") ($a '((href . "/provider/list")) "Browse providers") )))
-      ((isa '+Venue User) ($div '((id . nav)) (list ($a '((href . "/service/new")) "New Service") ($a '((href . "/service/list")) "Browse Services") ($a '((href . "/itineraries/")) "Browse Upcoming visitors") )))
+      ((isa '+Venue User) ($div '((id . nav)) (list ($a '((href . "/service/new")) "New Service") ($a '((href . "/service/mine")) "Browse Services") ($a '((href . "/itineraries/")) "Browse Upcoming visitors") )))
       ((isa '+Provider User))
       ((isa '+User User)($div '((id . nav)) (list ($a '((href . "/itins")) "My Itineraries") ($a '((href . "/venue/list")) "Browse Venues") ($a '((href . "/provider/list")) "Browse providers") ($a '((href . "/itinerary/new")) "New Itinerary") )))
       ()))
@@ -67,13 +67,13 @@
   (var grp +Venue)
   (var perms crud rc rm)
 
-  (rel nm (+Need +Sn +Aux +Key +String) (venue) (crud cr rm))
+  (rel nm (+Need +Sn +Aux +Key +String) (venue) (crud cr r))
   (rel desc (+Need +Idx +String) (crud rc cm))
   (rel duration (+Need +Number) (crud cr rm))
   (rel price (+Need +Number) (crud cr rm))
   (rel capacity (+Need +Number) (crud cr rm))
   (rel max_grp (+Number) (crud cr rm))
-  (rel venue (+Need +Ref +Joint) NIL services (+Venue) (rud cr rm))
+  (rel venue (+Need +Ref +Joint) NIL services (+Venue) (ud cr r))
   (rel itins (+List +Ref +Joint) NIL services (+Itinerary) (r))
 
 
