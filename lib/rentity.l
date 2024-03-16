@@ -87,7 +87,7 @@
   (dm rest_get> (Meth Path QS Post User) 
     (if (ext? This)
       (ifn Meth
-        (list 200 (list "instance" (spec> This User 'r) (vals> This User 'r)))
+        (list 200 (list "instance" (spec> This User (if (may 'u User This) 'u 'r)) (vals> This User 'r)))
         (let (Rs (get This (intern Meth)) Kls (intern (get (get (cls> This) (intern Meth)) 'type)))
           (ifn Kls  #The whole mishigas above is just for this test :/
             (or (try (intern (pack "get_" (car Path) ">")) This Path QS Post User) (404))

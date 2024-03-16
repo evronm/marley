@@ -91,10 +91,10 @@
 
 
 #user views second itinerary
-(test (200 ("instance" ("itinerary" 50 ("del" "ro") ((start_addr "text" NIL) (dt "date" NIL) (tm "time" NIL) (ppl "number" NIL) (services "instances" NIL) (provider "text" NIL))) (50 "xxxxxx" 739230 44400 4 (("url" "/service/39" "serv21" "serv21 desc") ("url" "/service/38" "serv13" "serv13 desc")) NIL))) (process "get" (list (car @Itin2)) NIL NIL '("user1@eml.com" "asdf")))
+(test (200 ("instance" ("itinerary" 50 ("del") ((start_addr "text" (req)) (dt "date" (req)) (tm "time" (req)) (ppl "number" (req)) (services "instances" (("options" ((nm "text") (desc "text")) ((36 "serv11" "serv11 desc") (37 "serv12" "serv12 desc") (38 "serv13" "serv13 desc") (39 "serv21" "serv21 desc") (40 "serv22" "serv22 desc") (41 "serv31" "serv31 desc") (42 "serv41" "serv41 desc") (43 "serv42" "serv42 desc") (44 "serv51" "serv51 desc") (45 "serv52" "serv52 desc") (46 "serv53" "serv53 desc") (47 "serv54" "serv54 desc"))))) (provider "text" NIL))) (50 "xxxxxx" 739230 44400 4 (("url" "/service/39" "serv21" "serv21 desc") ("url" "/service/38" "serv13" "serv13 desc")) NIL))) (process "get" (list (car @Itin2)) NIL NIL '("user1@eml.com" "asdf")))
 
 #user views first itinerary
-(test (200 ("instance" ("itinerary" 49 ("del" "ro") ((start_addr "text" NIL) (dt "date" NIL) (tm "time" NIL) (ppl "number" NIL) (services "instances" NIL) (provider "text" NIL))) (49 "asdf asdf" 739194 41400 2 (("url" "/service/41" "serv31" "serv31 desc") ("url" "/service/40" "serv22" "serv22 desc") ("url" "/service/36" "serv11" "serv11 desc")) NIL))) (process "get" (list (car @Itin1)) NIL NIL '("user1@eml.com" "asdf")))
+(test (200 ("instance" ("itinerary" 49 ("del") ((start_addr "text" (req)) (dt "date" (req)) (tm "time" (req)) (ppl "number" (req)) (services "instances" (("options" ((nm "text") (desc "text")) ((36 "serv11" "serv11 desc") (37 "serv12" "serv12 desc") (38 "serv13" "serv13 desc") (39 "serv21" "serv21 desc") (40 "serv22" "serv22 desc") (41 "serv31" "serv31 desc") (42 "serv41" "serv41 desc") (43 "serv42" "serv42 desc") (44 "serv51" "serv51 desc") (45 "serv52" "serv52 desc") (46 "serv53" "serv53 desc") (47 "serv54" "serv54 desc"))))) (provider "text" NIL))) (49 "asdf asdf" 739194 41400 2 (("url" "/service/41" "serv31" "serv31 desc") ("url" "/service/40" "serv22" "serv22 desc") ("url" "/service/36" "serv11" "serv11 desc")) NIL))) (process "get" (list (car @Itin1)) NIL NIL '("user1@eml.com" "asdf")))
 
 #user 2 tries to look at user1's itinerary
 (test (403) (process "get" (list "itinerary" (car @Itin2)) NIL NIL '("user2@eml.com" "asdf")))

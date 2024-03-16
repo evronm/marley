@@ -53,7 +53,7 @@ u.prototype.eid=function() {
 
 function Field (spec, val) {
   this.name=spec[0];
-  this.type=spec[1].replace('bool', 'checkbox'); //yes, facepalm :/
+  this.type=spec[1].replace('bool', 'checkbox'); //I hate this, but it's needed
   this.restrictions={};
   if (spec[2]) {
     this.restrictions.ro=spec[2].includes("ro");
@@ -67,7 +67,9 @@ Field.prototype.dom=function() {
   if (this.restrictions.ro) {
     return this.ro();
   }
-  if (this[this.type]){
+  if (Fields[this.name]){
+    return Fields[this.name];
+  } else if (this[this.type]){
     return this[this.type]();
   } else {
     return this.default();
