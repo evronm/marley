@@ -62,11 +62,11 @@
 
   (dm val> (R Act) 
     (let (V (get This R))
-      (if2 (atom V) (not (= Act 'r))
-        (if (ext? V ) (get V 'eid) V)
+      (if2 (atom V) (= Act 'r)
         (if (ext? V ) (link> V) V)
-        (mapcar '((E)(get E 'eid)) V)
-        (mapcar '((E)(link> E)) V))))
+        (if (ext? V ) (get V 'eid) V)
+        (mapcar '((E)(link> E)) V)
+        (mapcar '((E)(get E 'eid)) V))))
 
   (dm vals> (User Act Rels) 
     (let Vals (mapcar '((R)(val> This R Act)) (or Rels (rels> This User Act)))

@@ -1,6 +1,6 @@
 Fields={
-  tags: function (){
-    alert('asdf');
+  tags: function (tags){
+    console.log(tags);
   }
 
 }

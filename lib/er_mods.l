@@ -22,7 +22,6 @@
 
 
 (extend +List)
-  (dm list> (Parent) (get Parent (get This 'var)))
   (dm options> (QS User) 
     (let (E (car (get This 'type)) Rs (or (car (get E 'list_rels)) '(nm desc)) )  ### This needs to go in the config file ###
       (list "options" (mapcar '((R)(list R (spec> (get E R)))) Rs) (list_vals> E Path QS Post User Rs))))

@@ -68,7 +68,7 @@ Field.prototype.dom=function() {
     return this.ro();
   }
   if (Fields[this.name]){
-    return Fields[this.name];
+    return Fields[this.name](this);
   } else if (this[this.type]){
     return this[this.type]();
   } else {
