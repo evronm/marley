@@ -6,7 +6,7 @@ Fields={
       options.push(tag[1]);
       if(tags.val.includes(tag[0])) {val=val + tag[1] + " "}
     })
-    return input({name: "tags", value: val}); 
+    return [tags.label(),input({name: "tags", value: val})]; 
   }
 
 }
