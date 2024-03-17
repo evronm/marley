@@ -30,7 +30,7 @@
     Str))
 
 (de parse_qs (QS)
-  (mapcar '((Pr) 
+  (mapcar '((Pr)
     (let  (Kv (split Pr "="))
       (cons (url_dec (car Kv)) (spl_comma (url_dec (cadr Kv))) )
     ) ) (split QS '&)))

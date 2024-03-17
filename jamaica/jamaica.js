@@ -1,5 +1,5 @@
 
-const {div, p, a, span, pre, form, label, input, textarea, button, submit, table, thead, tbody, th, tr, td} = van.tags;
+const {div, p, a, span, pre, form, label, input, select, option, textarea, button, submit, table, thead, tbody, th, tr, td} = van.tags;
 const labels={
   nm: "Name",
   desc: "Description",
