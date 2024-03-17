@@ -92,7 +92,7 @@ Field.prototype.ro=function() {
 }
 
 Field.prototype.instances=function() {
-  return VanTable(this.restrictions.options[1], this.restrictions.options[2],{select:"multi", field_name: this.name, selected: this.vals})
+  return VanTable(this.restrictions.options[1], this.restrictions.options[2],{select:"multi", field_name: this.name, selected: this.val})
 }
 
 function VanTable (cols, data, conf) {
