@@ -103,7 +103,7 @@ function VanTable (cols, data, conf) {
 
   var tbl = table({class: conf.class, id: "tbl_"+conf.field_name}, 
     thead( cols.map((col) => th({class: col[0]}, labels[col[0]] ? labels[col[0]] : col[0]))),
-    tbody( data.map((row) => {var id=row.shift();return tr({id: id, class: (conf.vals && conf.vals.include(id) ? "selected" : "")}, row.map((cell) => td(cell)))}))
+    tbody( data.map((row) => {var id=row.shift();return tr({id: id, class: (conf.selected && conf.selected.includes(id) ? "selected" : "")}, row.map((cell) => td(cell)))}))
   );
   if (vals) {
     return [vals, tbl]
