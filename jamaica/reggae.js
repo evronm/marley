@@ -92,22 +92,23 @@ Field.prototype.ro=function() {
 }
 
 Field.prototype.instances=function() {
-  return VanTable(this.restrictions.options[1], this.restrictions.options[2],{select:"multi", field_name: this.name})
+  return VanTable(this.restrictions.options[1], this.restrictions.options[2],{select:"multi", field_name: this.name, selected: this.vals})
 }
 
 function VanTable (cols, data, conf) {
-  if (conf.select){ var selector=conf.select == "one" ? "radio" : "checkbox"}
+  if (conf.select){ 
+    var selector=conf.select == "one" ? "radio" : "checkbox"
+    var vals=input({type:"hidden", name:conf.field_name, value: conf.selected})
+  }
 
-  return table({class: conf.class, id: conf.id}, 
-    thead(
-      ((conf.select ? [""] : []).concat(cols)).map((col) => th({class: col[0]}, labels[col[0]] ? labels[col[0]] : col[0]))
-    ),
-    tbody(
-      conf.select ? 
-        data.map((row) => tr(td(input({type: selector, name: conf.field_name, value: row.shift()})), row.map((cell) => td(cell))))
-      : 
-        data.map((row) => tr({id: row.shift()}, row.map((cell) => td(cell))))
-    )
+  var tbl = table({class: conf.class, id: "tbl_"+conf.field_name}, 
+    thead( cols.map((col) => th({class: col[0]}, labels[col[0]] ? labels[col[0]] : col[0]))),
+    tbody( data.map((row) => {var id=row.shift();return tr({id: id, class: (conf.vals && conf.vals.include(id) ? "selected" : "")}, row.map((cell) => td(cell)))}))
   );
+  if (vals) {
+    return [vals, tbl]
+  } else {
+    return tbl
+  }
 
 }
