@@ -37,7 +37,11 @@ const Reggae={
     var flags=json[0][1];
     var spec=json[0][3];
     var data=json[1];
-    return VanTable(spec.map((s) => s), data.map((d) => reggae2dom(d)), {class: "display"});
+    if (flags && flags.includes("ro")) {
+      return  VanTable(spec.map((s) => s), data.map((d) => reggae2dom(d)), {class: "display"});
+    } else {
+      return  [a({href: "/" + typ + "/new"}, "New"),VanTable(spec.map((s) => s), data.map((d) => reggae2dom(d)), {class: "display"})];
+    }
   },
   mesg: (title, content) => {
     return "asdf";
