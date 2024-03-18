@@ -99,11 +99,19 @@ function VanTable (cols, data, conf) {
   if (conf.select){ 
     var selector=conf.select == "one" ? "radio" : "checkbox"
     var vals=input({type:"hidden", name:conf.field_name, value: conf.selected})
+    var handler=function(e) {
+      var id=e.target.parentNode.id;
+      if (e.target.parentNode.className.match(/selected/)) {
+        console.log("sel")
+      } else{
+        console.log("not")
+      }
+    }
   }
 
   var tbl = table({class: conf.class, id: "tbl_"+conf.field_name}, 
     thead( cols.map((col) => th({class: col[0]}, labels[col[0]] ? labels[col[0]] : col[0]))),
-    tbody( data.map((row) => {var id=row.shift();return tr({id: id, class: (conf.selected && conf.selected.includes(id) ? "selected" : "")}, row.map((cell) => td(cell)))}))
+    tbody( data.map((row) => {var id=row.shift();return tr({id: id, class: (conf.selected && conf.selected.includes(id) ? "selected" : ""), onclick: handler}, row.map((cell) => td(cell)))}))
   );
   if (vals) {
     return [vals, tbl]
