@@ -24,16 +24,10 @@
                      D
                      (link
                         (char (| (>> -6 (& C 3)) D)) ) ) ) ) ) ) ) )
-(de spl_comma (Str)
-  (if (sub? "," Str) 
-    (mapcar '((I)(any (pack I))) (sc Str ","))
-    Str))
-
 (de parse_qs (QS)
-  (mapcar '((Pr)
+  (group (mapcar '((Pr)
     (let  (Kv (split Pr "="))
-      (cons (url_dec (car Kv)) (spl_comma (url_dec (cadr Kv))) )
-    ) ) (split QS '&)))
+      (cons (url_dec (car Kv)) (url_dec (cadr Kv)) )) ) (split QS '&))))
 
 (de url_dec (S) 
   (let (Str (split (replace S "+" " ") '%))

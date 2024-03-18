@@ -113,7 +113,7 @@
                 (put E R NIL)
                 (setq Errs (add> (meta E R) E Post)))
               (push 'Errs (list R "Forbidden")))
-            (let (V (cdr (assoc R Post)))
+            (let (V (cadr (assoc R Post)))
               (cond
                 ((setq Err (mis> E R (or (or (format V) V) (get E R)))) (push 'Errs (list R Err )))
                 ((and V (not (may (req_action Verb Meth) User This R))) (push 'Errs (list R "Forbidden")))
