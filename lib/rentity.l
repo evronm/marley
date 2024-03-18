@@ -22,7 +22,7 @@
   (dm grp_mem>(User) (isa (car (or (get This 'grp) (var: grp))) User))
   (dm cls> () (if (ext? This) (car (type This)) (name This)))
   (dm cls_nm> () (lowc (pack (cdr (chop (cls> This)))) ))
-  (dm url> () (pack "/" (cls_nm> This) "/" (when (ext? This) (get This 'eid))))
+  (dm url> () (pack "/" (when (ext? This) (get This 'eid))))
   (dm link> () (list "url" (url> This) (get This 'nm) (get This 'desc)))
 
   (dm rel> (R) (meta (list This) R))
@@ -44,15 +44,11 @@
             (if (= Act 'r) NIL  (restrict> Rel User Act This) ))) )
         (rels> This User Act))))
 
-  (dm flags> (User Act Lst?) 
+  (dm flags> (User Act) 
     (off Flags)
-    (if Lst? 
-      (prog
-        (when (may 'c User This) (push 'Flags "new"))
-        (when (may 'd User This) (push 'Flags "del")))
-      (when (= 'c Act) (push 'Flags "new"))
-      (unless (or (and (= 'c Act) (may 'c User This)) (and (= 'u Act) (may 'u User This)) )  (push 'Flags "ro"))
-      (when (may 'd User This) (push 'Flags "del")))
+    (when (= 'c Act) (push 'Flags "new"))
+    (unless (or (and (not (ext? This)) (may 'c User This)) (and (= 'c Act) (may 'c User This)) (and (= 'u Act) (may 'u User This)) )  (push 'Flags "ro"))
+    (when (may 'd User This) (push 'Flags "del"))
     Flags)
 
   (dm list> (Path QS Post User) 

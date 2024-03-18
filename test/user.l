@@ -33,13 +33,13 @@
 
 
 #anon searches for venues whose name starts with "ven1"
-(test  (200 ("instances" ("venue" "new" ("ro") ((nm "text" NIL) (desc "text" NIL) (providers "instances" NIL) (services "instances" NIL))) ((26 "ven1" "venue desc 1" NIL (("url" "/service/38" "serv13" "serv13 desc") ("url" "/service/37" "serv12" "serv12 desc") ("url" "/service/36" "serv11" "serv11 desc"))) (35 "ven10" "venue desc 10" NIL NIL)))) (process "get" '("venue") '((nm . ven1))))
+(test (200 ("instances" ("venue" "new" NIL ((nm "text" NIL) (desc "text" NIL) (providers "instances" NIL) (services "instances" NIL))) ((26 "ven1" "venue desc 1" NIL (("url" "/38" "serv13" "serv13 desc") ("url" "/37" "serv12" "serv12 desc") ("url" "/36" "serv11" "serv11 desc"))) (35 "ven10" "venue desc 10" NIL NIL))))  (process "get" '("venue") '((nm . ven1))))
 
 #anon browses all providers
-(test (200 ("instances" ("provider" "new" ("ro") ((nm "text" NIL) (desc "text" NIL) (venues "instances" NIL))) ((21 "prov1" "prov desc 1" NIL) (22 "prov2" "prov desc 2" NIL) (23 "prov3" "prov desc 3" NIL) (24 "prov4" "prov desc 4" NIL) (25 "prov5" "prov desc 5" NIL)))) (process "get" '("provider")))
+(test (200 ("instances" ("provider" "new" NIL ((nm "text" NIL) (desc "text" NIL) (venues "instances" NIL))) ((21 "prov1" "prov desc 1" NIL) (22 "prov2" "prov desc 2" NIL) (23 "prov3" "prov desc 3" NIL) (24 "prov4" "prov desc 4" NIL) (25 "prov5" "prov desc 5" NIL)))) (process "get" '("provider")))
 
 #anon browses services from ven2
-(test (200 ("instances" ("service" "new" ("ro") ((nm "text" NIL) (duration "number" NIL) (price "number" NIL) (capacity "number" NIL) (max_grp "number" NIL) (venue "text" NIL) (itins "instances" NIL) (tags "instances" NIL))) ((39 "serv21" 4 15 12 4 ("url" "/venue/27" "ven2" "venue desc 2") NIL NIL) (40 "serv22" 5 16 13 5 ("url" "/venue/27" "ven2" "venue desc 2") NIL NIL)))) (process "get" '("service") (list (cons "venue"  (get (db 'nm '+Venue "ven2") 'eid)))))
+(test (200 ("instances" ("service" "new" ("ro") ((nm "text" NIL) (duration "number" NIL) (price "number" NIL) (capacity "number" NIL) (max_grp "number" NIL) (venue "text" NIL) (itins "instances" NIL) (tags "instances" NIL))) ((39 "serv21" 4 15 12 4 ("url" "/27" "ven2" "venue desc 2") NIL NIL) (40 "serv22" 5 16 13 5 ("url" "/27" "ven2" "venue desc 2") NIL NIL)))) (process "get" '("service") (list (cons "venue"  (get (db 'nm '+Venue "ven2") 'eid)))))
 
 #anon requests new itinerary form
 (test (401) (process "get" '("Itinerary" "new")))
@@ -76,7 +76,7 @@
 (test '(@N @N) (get (db 'eid '+Itinerary (car @Itin2)) 'services))
 
 #user lists itineraries
-(test (200 ("instances" ("itinerary" "new" ("ro") ((start_addr "text" NIL) (dt "date" NIL) (tm "time" NIL) (ppl "number" NIL) (services "instances" NIL) (provider "text" NIL))) ((50 "xxxxxx" 739230 44400 4 (("url" "/service/39" "serv21" "serv21 desc") ("url" "/service/38" "serv13" "serv13 desc")) NIL) (49 "asdf asdf" 739194 41400 2 (("url" "/service/41" "serv31" "serv31 desc") ("url" "/service/40" "serv22" "serv22 desc") ("url" "/service/36" "serv11" "serv11 desc")) NIL)))) (process "get" '("itins") NIL NIL '("user1@eml.com" "asdf") ))
+(test (200 ("instances" ("itinerary" "new" NIL ((start_addr "text" NIL) (dt "date" NIL) (tm "time" NIL) (ppl "number" NIL) (services "instances" NIL) (provider "text" NIL))) ((50 "xxxxxx" 739230 44400 4 (("url" "/39" "serv21" "serv21 desc") ("url" "/38" "serv13" "serv13 desc")) NIL) (49 "asdf asdf" 739194 41400 2 (("url" "/41" "serv31" "serv31 desc") ("url" "/40" "serv22" "serv22 desc") ("url" "/36" "serv11" "serv11 desc")) NIL)))) (process "get" '("itins") NIL NIL '("user1@eml.com" "asdf") ))
 
 #user3 creates itinerary
 (match '(@Code ("instance" ("itinerary" @Itin3 @Rest))) (process "post" '("itinerary" "new") NIL '((ppl . "2") (start_addr . "asdf asdf") (dt . "2024-01-03") (tm . "11:30")) '("user3@eml.com" . "asdf")))
