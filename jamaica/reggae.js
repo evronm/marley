@@ -104,7 +104,7 @@ function VanTable (cols, data, conf) {
     ),
     tbody(
       conf.select ? 
-        data.map((row) => tr(td(input({type: selector, name: conf.field_name, value: row.shift()})), row.map((cell) => td(cell))))
+        data.map((row) => {var id=row.shift();return tr(td(input({type: selector, name: conf.field_name, value: id, checked: (conf.selected && conf.selected.includes(id))})), row.map((cell) => td(cell)))})
       : 
         data.map((row) => tr({id: row.shift()}, row.map((cell) => td(cell))))
     )
