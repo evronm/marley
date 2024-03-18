@@ -102,9 +102,9 @@ function VanTable (cols, data, conf) {
     var handler=function(e) {
       var id=e.target.parentNode.id;
       if (e.target.parentNode.className.match(/selected/)) {
-        console.log("sel")
+        e.target.parentNode.className=e.target.parentNode.className.replace(/selected/,"")
       } else{
-        console.log("not")
+        e.target.parentNode.className=e.target.parentNode.className + "selected "
       }
     }
   }
