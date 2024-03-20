@@ -24,7 +24,7 @@ const Reggae={
     var vals=json[1] || [];
     var srch=false;  //change to implement search
     var method= (srch ? "get" : "post");
-    var fields=json[0][3].map((s,i) => {return new Field(s, vals[i+1]).dom()});
+    var fields=json[0][3].map((s,i) => {return new Field(s, vals[i+1]).dom(flags=="ro")});
     if (flags=="ro"){
       return div({class:"ro", id:url}, fields);
     } else {
@@ -67,8 +67,8 @@ function Field (spec, val) {
   this.val=val ? val : "";
 }
 
-Field.prototype.dom=function() {
-  if (this.restrictions.ro) {
+Field.prototype.dom=function(ro) {
+  if (this.restrictions.ro || ro) {
     return this.ro();
   }
   if (Fields[this.name]){
